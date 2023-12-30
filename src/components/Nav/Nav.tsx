@@ -40,6 +40,9 @@ const Nav: React.FunctionComponent<INavProps> = (props) => {
       if (!mobileMenuRef.current?.contains(event.target as Node)) {
         setMobileMenuVisible(false);
       }
+      if (!profileBlockRef.current?.contains(event.target as Node)) {
+        setProfileBlockVisible(false);
+      }
     };
     document.addEventListener("mouseup", handleClickOutside);
     return () => document.removeEventListener("mouseup", handleClickOutside);
