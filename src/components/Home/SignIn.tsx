@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import ButtonLoader from "../ButtonLoader";
 import signInFeatures from "../../features/auth/signIn";
 import SignInError from "./Home Comps/SignInError";
+import { togglePassword } from "../../features/auth/showHidePassword";
 
 interface ISignInProps {
   setSignUpVisible: React.Dispatch<React.SetStateAction<boolean>>;
@@ -60,9 +61,7 @@ const SignIn: React.FunctionComponent<ISignInProps> = (props) => {
                 className="show-password"
                 viewBox="0 0 24 24"
                 fill="none"
-                onClick={() =>
-                  signInFeatures.togglePassword(passwordType, setPasswordType)
-                }
+                onClick={() => togglePassword(passwordType, setPasswordType)}
               >
                 <path
                   d="M2 2L22 22"

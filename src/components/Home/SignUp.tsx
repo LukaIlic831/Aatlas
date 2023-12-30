@@ -2,6 +2,7 @@ import * as React from "react";
 import SignUpError from "./Home Comps/SignUpError";
 import ButtonLoader from "../ButtonLoader";
 import signUpFeatures from "../../features/auth/signUp";
+import { togglePassword } from "../../features/auth/showHidePassword";
 
 interface ISignUpProps {
   setSignUpVisible: React.Dispatch<React.SetStateAction<boolean>>;
@@ -10,6 +11,7 @@ interface ISignUpProps {
 }
 
 const SignUp: React.FunctionComponent<ISignUpProps> = (props) => {
+  const [passwordType, setPasswordType] = React.useState<string>("password");
   return (
     <div className="auth__wrapper">
       <div className="auth-block" ref={props.blockRef}>
@@ -38,7 +40,11 @@ const SignUp: React.FunctionComponent<ISignUpProps> = (props) => {
             </div>
             <div className="auth-block__para--form-block">
               <p>Password</p>
-              <input type="password" placeholder="Enter Password" required />
+              <input
+                type={passwordType}
+                placeholder="Enter Password"
+                required
+              />
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="20px"
@@ -46,6 +52,7 @@ const SignUp: React.FunctionComponent<ISignUpProps> = (props) => {
                 className="show-password"
                 viewBox="0 0 24 24"
                 fill="none"
+                onClick={() => togglePassword(passwordType, setPasswordType)}
               >
                 <path
                   d="M2 2L22 22"

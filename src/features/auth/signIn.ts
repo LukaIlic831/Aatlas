@@ -8,17 +8,6 @@ const openSignUp = (
   setSignUpVisible(true);
 };
 
-const togglePassword = (
-  passwordType: string,
-  setPasswordType: React.Dispatch<React.SetStateAction<string>>
-) => {
-  if (passwordType === "password") {
-    setPasswordType("text");
-    return;
-  }
-  setPasswordType("password");
-};
-
 const handleSignin = async (
   event: React.FormEvent<HTMLFormElement>,
   setInvalidCredentials: React.Dispatch<React.SetStateAction<boolean>>,
@@ -52,7 +41,6 @@ const googleSignIn = async () => {
 
 const signInFeatures = {
   openSignUp,
-  togglePassword,
   handleSignin,
   googleSignIn,
 };
