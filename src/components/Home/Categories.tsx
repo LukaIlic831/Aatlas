@@ -9,9 +9,11 @@ const Categories: React.FunctionComponent<ICategoriesProps> = (props) => {
   const categories = useFetchSupabase<ICategory[]>("category");
   return (
     <div className="categories__wrapper">
-      {categories.data?.map((category) => (
-        <Category category={category} />
-      ))}
+      {categories.data
+        ?.sort((a, b) => a.number - b.number)
+        .map((category) => (
+          <Category category={category} />
+        ))}
     </div>
   );
 };
