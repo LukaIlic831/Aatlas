@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import ButtonLoader from "../ButtonLoader";
 import signInFeatures from "../../features/auth/signIn";
 import SignInError from "./Home Comps/SignInError";
-import { togglePassword } from "../../features/auth/showHidePassword";
+import { togglePassword } from "../../utils/showHidePassword";
 
 interface ISignInProps {
   setSignUpVisible: React.Dispatch<React.SetStateAction<boolean>>;

@@ -2,7 +2,7 @@ import * as React from "react";
 import SignUpError from "./Home Comps/SignUpError";
 import ButtonLoader from "../ButtonLoader";
 import signUpFeatures from "../../features/auth/signUp";
-import { togglePassword } from "../../features/auth/showHidePassword";
+import { togglePassword } from "../../utils/showHidePassword";
 
 interface ISignUpProps {
   setSignUpVisible: React.Dispatch<React.SetStateAction<boolean>>;
@@ -12,6 +12,10 @@ interface ISignUpProps {
 
 const SignUp: React.FunctionComponent<ISignUpProps> = (props) => {
   const [passwordType, setPasswordType] = React.useState<string>("password");
+  const [username, setUsername] = React.useState<string>("");
+  const [email, setEmail] = React.useState<string>("");
+  const [password, setPassword] = React.useState<string>("");
+  const [signUpError, setSignUpError] = React.useState<string | boolean>(false);
   return (
     <div className="auth__wrapper">
       <div className="auth-block" ref={props.blockRef}>
@@ -19,7 +23,20 @@ const SignUp: React.FunctionComponent<ISignUpProps> = (props) => {
           <div className="auth-block__para--title">
             <h1>Sign Up</h1>
           </div>
-          <form className="auth-block__para--form">
+          {signUpError && <SignUpError signUpError={signUpError as string} />}
+          <form
+            className="auth-block__para--form"
+            onSubmit={(e) =>
+              signUpFeatures.handleSignUp(
+                e,
+                email,
+                password,
+                username,
+                props.setSignUpVisible,
+                setSignUpError
+              )
+            }
+          >
             <div className="auth-block__para--form-block">
               <p>Username</p>
               <input
@@ -27,6 +44,7 @@ const SignUp: React.FunctionComponent<ISignUpProps> = (props) => {
                 maxLength={200}
                 placeholder="Enter Username"
                 required
+                onChange={(event) => setUsername(event.target.value)}
               />
             </div>
             <div className="auth-block__para--form-block">
@@ -36,6 +54,7 @@ const SignUp: React.FunctionComponent<ISignUpProps> = (props) => {
                 maxLength={200}
                 placeholder="Enter Email Address"
                 required
+                onChange={(event) => setEmail(event.target.value)}
               />
             </div>
             <div className="auth-block__para--form-block">
@@ -44,6 +63,7 @@ const SignUp: React.FunctionComponent<ISignUpProps> = (props) => {
                 type={passwordType}
                 placeholder="Enter Password"
                 required
+                onChange={(event) => setPassword(event.target.value)}
               />
               <svg
                 xmlns="http://www.w3.org/2000/svg"
