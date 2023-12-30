@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './css/main.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
