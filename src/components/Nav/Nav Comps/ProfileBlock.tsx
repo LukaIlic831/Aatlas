@@ -1,9 +1,12 @@
 import * as React from "react";
-import { Link } from "react-router-dom";
+import { Link, Location, NavigateFunction } from "react-router-dom";
+import signOut from "../../../features/auth/signOut";
 
 interface IProfileBlockProps {
   id: string;
   profileBlockRef: React.MutableRefObject<HTMLUListElement | null>;
+  navigate: NavigateFunction;
+  location: Location<any>;
 }
 
 const ProfileBlock: React.FunctionComponent<IProfileBlockProps> = (props) => {
@@ -30,7 +33,10 @@ const ProfileBlock: React.FunctionComponent<IProfileBlockProps> = (props) => {
         </Link>
       </li>
       <li className="nav__profile--list-item">
-        <div className="nav__profile--list-item-link">
+        <div
+          className="nav__profile--list-item-link"
+          onClick={() => signOut(props.navigate, props.location)}
+        >
           <div className="nav__profile--list-item-link-icon">
             <svg
               stroke="currentColor"

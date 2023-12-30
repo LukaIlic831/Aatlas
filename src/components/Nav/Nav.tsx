@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import NavUsernameSkeleton from "../Skeleton Loaders/NavUsernameSkeleton";
 import SignUp from "../Home/SignUp";
 import SignIn from "../Home/SignIn";
@@ -14,6 +14,7 @@ interface INavProps {}
 const Nav: React.FunctionComponent<INavProps> = (props) => {
   const { currentUser } = useAppContext();
   const location = useLocation();
+  const navigate = useNavigate();
   const [signUpVisible, setSignUpVisible] = React.useState<boolean>(false);
   const [signInVisible, setSignInVisible] = React.useState<boolean>(false);
   const blockRef = React.useRef<HTMLDivElement | null>(null);
@@ -104,6 +105,8 @@ const Nav: React.FunctionComponent<INavProps> = (props) => {
               <ProfileBlock
                 id={currentUser.user.id}
                 profileBlockRef={profileBlockRef}
+                navigate={navigate}
+                location={location}
               />
             )}
             {currentUser.user.user_metadata.username ? (
