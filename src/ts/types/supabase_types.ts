@@ -12,21 +12,21 @@ export interface Database {
       category: {
         Row: {
           id: string;
-          image: string | null;
-          number: number | null;
-          sub_title: string | null;
+          image: string;
+          number: number;
+          sub_title: string;
         };
         Insert: {
           id: string;
-          image?: string | null;
-          number?: number | null;
-          sub_title?: string | null;
+          image?: string;
+          number?: number;
+          sub_title?: string;
         };
         Update: {
           id?: string;
-          image?: string | null;
-          number?: number | null;
-          sub_title?: string | null;
+          image?: string;
+          number?: number;
+          sub_title?: string;
         };
         Relationships: [];
       };
