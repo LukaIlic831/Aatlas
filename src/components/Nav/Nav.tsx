@@ -7,6 +7,7 @@ import MobileNav from "../Mobile/MobileNav";
 import MobileMenu from "../Mobile/MobileMenu";
 import { toggleDarkLightMode } from "../../utils/darkLightMode";
 import useAppContext from "../../hooks/useAppContext";
+import ProfileBlock from "./Nav Comps/ProfileBlock";
 
 interface INavProps {}
 
@@ -16,6 +17,7 @@ const Nav: React.FunctionComponent<INavProps> = (props) => {
   const [signUpVisible, setSignUpVisible] = React.useState<boolean>(false);
   const [signInVisible, setSignInVisible] = React.useState<boolean>(false);
   const blockRef = React.useRef<HTMLDivElement | null>(null);
+  const profileBlockRef = React.useRef<HTMLUListElement | null>(null);
   const [mobileMenuVisible, setMobileMenuVisible] =
     React.useState<boolean>(false);
   const mobileMenuRef = React.useRef<HTMLDivElement | null>(null);
@@ -24,6 +26,8 @@ const Nav: React.FunctionComponent<INavProps> = (props) => {
       ? localStorage.getItem("theme")!
       : "light-theme"
   );
+  const [profileBlockVisible, setProfileBlockVisible] =
+    React.useState<boolean>(false);
 
   React.useEffect(() => {
     const handleClickOutside = (event: Event) => {
@@ -96,8 +100,16 @@ const Nav: React.FunctionComponent<INavProps> = (props) => {
         </ul>
         {currentUser ? (
           <div className="nav__profile">
+            {profileBlockVisible && (
+              <ProfileBlock
+                id={currentUser.user.id}
+                profileBlockRef={profileBlockRef}
+              />
+            )}
             {currentUser.user.user_metadata.username ? (
-              <button>{currentUser?.user.user_metadata.username}</button>
+              <button onClick={() => setProfileBlockVisible(true)}>
+                {currentUser?.user.user_metadata.username}
+              </button>
             ) : (
               <NavUsernameSkeleton />
             )}
