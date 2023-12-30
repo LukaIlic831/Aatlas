@@ -1,0 +1,7 @@
+.category-page__wrapper {
+  @include blockWrapper;
+
+  .category {
+    @include category;
+  }
+}

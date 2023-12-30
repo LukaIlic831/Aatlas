@@ -1,0 +1,19 @@
+.error__wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+
+  .error {
+    display: flex;
+    align-items: center;
+
+    &__number {
+    border-right: 1px solid rgb(129 131 132/1);
+      margin: 0 20px 0 0;
+      padding-right: 20px;
+      font-size: 24px;
+    }
+  }
+}

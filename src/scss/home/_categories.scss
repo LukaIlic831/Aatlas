@@ -1,0 +1,14 @@
+.categories__wrapper {
+  @include blockWrapper;
+
+  .category {
+    @include category;
+    cursor: pointer;
+    &:hover {
+      img {
+        transform: scale(1.1);
+      }
+    }
+  }
+}
+

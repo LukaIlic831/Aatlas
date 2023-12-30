@@ -1,0 +1,7 @@
+.username-skeleton {
+  width: 100%;
+  height: 50px;
+  width: 120px;
+  border-radius: 5px;
+  @include skeleton-animation(skeleton-loading 1s linear infinite alternate);
+}

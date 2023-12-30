@@ -1,0 +1,205 @@
+.post__wrapper {
+  @include blockWrapper;
+
+  .post__block {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    background-color: var(--blockColor);
+    box-shadow: rgb(14 30 37 / 12%) 0px 2px 4px 0px,
+      rgb(14 30 37 / 15%) 0px 2px 16px 0px;
+    border-radius: 5px;
+    padding: 16px 14px;
+    margin-bottom: 20px;
+
+    .post {
+      box-shadow: none !important;
+      padding: 0 !important;
+      cursor: default !important;
+      margin-bottom: 0 !important;
+
+      img {
+        cursor: pointer !important;
+      }
+
+      .items__item:last-child {
+        display: none !important;
+      }
+    }
+  }
+
+  .post__comment {
+    textarea {
+      resize: none;
+      color: var(--mainColor);
+    }
+  }
+
+  .comments {
+    margin-bottom: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--blockColor);
+    box-shadow: var(--boxShadow);
+    border-radius: 5px;
+    padding: 16px 14px;
+    &__counter {
+      display: flex;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    .comment {
+      width: 100%;
+
+      &__align {
+        display: flex;
+        margin-top: 20px;
+      }
+
+      &__wrapper {
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+      }
+
+      &__line {
+        margin-right: 10px;
+        width: 20px;
+        display: flex;
+        justify-content: center;
+
+        &--border {
+          height: 100%;
+          border-right: 2px solid rgb(129 131 132/1);
+          @include transition;
+          cursor: pointer;
+
+          &:hover {
+            border-color: var(--commentLineBorder);
+          }
+        }
+      }
+
+      &__info {
+        width: 100%;
+
+        &--desc {
+          width: 100%;
+          display: flex;
+
+          &-username,
+          &-date {
+            font-size: 12px;
+          }
+
+          &-username {
+            font-weight: 700;
+            margin-right: 8px;
+            cursor: pointer;
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+
+          &-date {
+            span {
+              color: var(--secondColor);
+            }
+          }
+        }
+        &--text {
+          margin-top: 10px;
+          p {
+            line-height: 1.5rem;
+            line-break: anywhere;
+
+            @media (max-width: 480px) {
+              font-size: 14px;
+              line-height: 1.3rem;
+            }
+          }
+        }
+      }
+      .sub-comment {
+        width: 100%;
+        display: flex;
+        padding-left: 20px;
+        flex-direction: column;
+
+        @media (max-width: 480px) {
+          padding-left: 0;
+        }
+      }
+
+      .comment-section {
+        margin-top: 10px;
+
+        textarea {
+          width: 100%;
+          padding: 0.5rem;
+          resize: none;
+          background-color: rgba(0, 0, 0, 0.05);
+          border: 1px solid rgba(175, 177, 183, 0.39);
+          outline: none;
+          border-radius: 5px;
+          transition: background-color ease 300ms;
+          font-size: 1rem;
+          min-height: 200px;
+          color: var(--mainColor);
+        }
+      }
+    }
+  }
+}
+
+.comment__info--items-item {
+  padding: 0.4rem 0.525rem;
+  &-icon {
+    svg {
+      @media (max-width: 480px) {
+        width: 0.8em;
+      }
+    }
+  }
+
+  &-count {
+    @media (max-width: 480px) {
+      font-size: 0.8em;
+    }
+  }
+}
+
+.trash__info--items-item,
+.edit__info--items-item {
+  padding: 0.4rem 0.525rem;
+  &-icon {
+    margin-right: 0 !important;
+    svg {
+      @media (max-width: 480px) {
+        width: 0.8em;
+      }
+    }
+  }
+}
+
+.loader__block {
+  margin-bottom: 20px;
+  width: 100%;
+  text-align: center;
+  background-color: var(--blockColor);
+  box-shadow: var(--boxShadow);
+  border-radius: 5px;
+  padding: 16px 14px;
+}
+
+.after-loader__block {
+  margin-bottom: 20px;
+  width: 100%;
+  text-align: center;
+  background-color: var(--blockColor);
+  box-shadow: var(--boxShadow);
+  border-radius: 5px;
+  padding: 16px 14px;
+}

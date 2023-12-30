@@ -1,0 +1,225 @@
+.post {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  background-color: var(--blockColor);
+  box-shadow: var(--boxShadow);
+  border-radius: 5px;
+  padding: 16px 14px;
+  margin-bottom: 20px;
+ // opacity: 0;
+  transition: opacity 300ms ease;
+  cursor: pointer;
+
+  &__desc {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &--username {
+      display: flex;
+      align-items: center;
+      &-name {
+        margin-right: 6px;
+
+        cursor: pointer;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      &-para {
+        p {
+          font-size: 14px;
+          color: var(--secondColor);
+
+          span {
+            cursor: pointer;
+            color: var(--thirdColor);
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+        }
+      }
+    }
+
+    &--options {
+      display: flex;
+      align-items: center;
+      position: relative;
+      svg {
+        cursor: pointer;
+      }
+    }
+  }
+
+  &__options {
+    position: absolute;
+    right: 0;
+    top: 20px;
+    border-radius: 5px;
+    box-shadow: var(--boxShadow);
+    background-color: var(--blockColor);
+    z-index: 2;
+
+    li {
+      border-radius: 5px;
+      &:first-child {
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+
+      &:last-child {
+        border-top-right-radius: 0;
+        border-top-left-radius: 0;
+      }
+
+      &:hover {
+        background-color: var(--hoverColor);
+      }
+    }
+
+    .post__option {
+      &--button {
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        padding: 0.8rem;
+        cursor: pointer;
+      }
+      &--icon {
+        padding-right: 10px;
+        display: flex;
+        align-items: center;
+      }
+      p {
+        font-size: 14px;
+      }
+    }
+  }
+
+  &__title {
+    margin-top: 10px;
+    h1 {
+      font-size: 20px;
+
+      @media (max-width: 480px) {
+        font-size: 18px;
+      }
+    }
+  }
+
+  &__text {
+    margin-top: 10px;
+    p {
+      line-height: 1.5rem;
+      line-break: anywhere;
+    }
+  }
+
+  &__image {
+    width: 100%;
+    margin-top: 10px;
+    position: relative;
+
+    &--first-block,
+    &--second-block {
+      width: 100%;
+      display: grid;
+      grid-gap: 6px;
+    }
+
+    &--second-block {
+      margin-top: 6px;
+    }
+
+    &--map {
+      height: 300px;
+    }
+
+    img {
+      height: 300px;
+      object-fit: cover;
+    }
+  }
+
+  &__back {
+    width: 100%;
+    display: flex;
+    margin-bottom: 0.5rem;
+
+    &--icon {
+      padding: 0.5rem 0.625rem;
+      border-radius: 5px;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      @include transition;
+      &:hover {
+        background-color: rgba(107, 114, 128, 0.327);
+      }
+    }
+  }
+
+  &__comment {
+    width: 100%;
+    margin-top: 10px;
+    textarea {
+      width: 100%;
+      padding: 0.5rem;
+      resize: vertical;
+      background-color: rgba(0, 0, 0, 0.05);
+      border: 1px solid rgba(175, 177, 183, 0.39);
+      outline: none;
+      border-radius: 5px;
+      transition: background-color ease 300ms;
+      font-size: 1rem;
+      min-height: 200px;
+
+      @media (max-width: 480px) {
+        font-size: 0.9rem;
+      }
+
+      &:focus {
+        border-color: var(--textareaBorder);
+      }
+      &:hover {
+        background-color: var(--textareaHover);
+      }
+
+      &::placeholder {
+        color: rgba(107, 114, 128, 0.622);
+      }
+    }
+  }
+  &__button {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    padding-top: 10px;
+    button {
+      font-weight: 500;
+      font-size: 0.875rem;
+      padding: 8px 10px;
+      border-radius: 5px;
+      color: white;
+      border: 2px solid;
+      cursor: pointer;
+      background-color: var(--thirdColor);
+      @include transition;
+      border-color: var(--thirdColor);
+
+      &:hover {
+        background-color: transparent;
+        color: var(--thirdColor);
+      }
+    }
+  }
+}
+
+.show-post{
+  opacity: 1 !important;
+}

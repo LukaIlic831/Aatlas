@@ -1,0 +1,108 @@
+.add-username__wrapper {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  
+    .add-username__block {
+      background-color: var(--blockColor);
+      border-radius: 1rem;
+      width: 100%;
+      max-width: 350px;
+      margin: 0 1.5rem;
+      box-shadow: var(--boxShadow);
+  
+      &--para {
+        padding: 24px 24px;
+  
+        &-title {
+          margin-top: 0.75rem;
+          h1 {
+            font-size: 1.5rem;
+  
+            @media (max-width: 768px) {
+              font-size: 1.25rem;
+            }
+          }
+        }
+        &-form {
+          width: 100%;
+          margin-top: 0.75rem;
+  
+          &-input {
+            input {
+              width: 100%;
+              margin-top: 0.5rem;
+              font-size: 16px;
+              padding: 0.75rem 1rem;
+              border-radius: 5px;
+              border: 1px solid #e5e7eb;
+              background-color: rgb(229 231 235/1);
+              outline: 0;
+              &::placeholder {
+                color: rgba(107, 114, 128, 0.622);
+              }
+  
+              &:focus {
+                border-color: blue;
+              }
+  
+              @media (max-width: 480px) {
+                font-size: 14px;
+              }
+            }
+          }
+  
+          &-button {
+            margin-top: 0.75rem;
+            button {
+              @include button;
+              font-weight: 700;
+              font-size: 16px !important;
+  
+              @media (max-width: 480px) {
+                font-size: 14px !important;
+              }
+  
+              svg {
+                @include transition;
+                fill: white;
+                margin-top: 4px;
+              }
+  
+              .spinner {
+                transform-origin: center;
+                animation: spinnerAnimation 0.75s infinite linear;
+              }
+            }
+          }
+        }
+  
+        &-successful,
+        &-error {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          margin-top: 0.75rem;
+          padding: 10px;
+          border-radius: 5px;
+          p {
+            color: white;
+            @media (max-width: 480px) {
+              font-size: 14px;
+            }
+          }
+        }
+        &-successful {
+          background-color: rgb(31, 151, 37);
+        }
+        &-error {
+          background-color: rgb(219, 40, 40);
+        }
+      }
+    }
+  }
+  

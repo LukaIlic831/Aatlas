@@ -1,0 +1,19 @@
+.profile__name--skeleton, .profile__date--skeleton{
+    height: 20px;
+    border-radius: 5px;
+}
+
+.profile__name--skeleton {
+  width: 80px;
+  @include skeleton-animation(
+    skeleton-loading 1s linear infinite alternate
+  );
+}
+
+.profile__date--skeleton {
+    width: 160px;
+    margin-top: 4px;
+  @include skeleton-animation(
+    skeleton-loading 1s linear infinite alternate
+  );
+}

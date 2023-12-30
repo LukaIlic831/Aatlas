@@ -1,0 +1,19 @@
+.profile__wrapper{
+    @include blockWrapper;
+
+    .profile__block{
+        background-color: var(--blockColor);
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+        padding: 16px 14px;
+        box-shadow: var(--boxShadow);
+        margin-bottom: 20px;
+        
+
+        &--date{
+            font-size: 14px;
+            margin-top: 4px;
+        }
+    }
+}
