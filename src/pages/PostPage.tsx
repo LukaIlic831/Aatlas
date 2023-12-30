@@ -1,6 +1,6 @@
 import * as React from "react";
 import Footer from "../components/Footer/Footer";
-import Nav from "../components/Nav";
+import Nav from "../components/Nav/Nav";
 import SelectedPost from "../components/Post Page/SelectedPost";
 
 interface IPostPageProps {}

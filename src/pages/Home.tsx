@@ -1,5 +1,5 @@
 import * as React from "react";
-import Nav from "../components/Nav";
+import Nav from "../components/Nav/Nav";
 import Categories from "../components/Home/Categories";
 import Footer from "../components/Footer/Footer";
 interface IHomeProps {}

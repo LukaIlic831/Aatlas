@@ -3,7 +3,12 @@ import { Link } from "react-router-dom";
 
 interface IMobileMenuProps {
   mobileMenuRef: React.MutableRefObject<HTMLDivElement | null>;
-  toggleDarkLightMode: () => void;
+  toggleDarkLightMode: (
+    lightMode: string,
+    setLightMode: React.Dispatch<React.SetStateAction<string>>
+  ) => void;
+  lightMode: string;
+  setLightMode: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const MobileMenu: React.FunctionComponent<IMobileMenuProps> = (props) => {
@@ -34,7 +39,9 @@ const MobileMenu: React.FunctionComponent<IMobileMenuProps> = (props) => {
           </li>
           <li
             className="nav__list--item"
-            onClick={props.toggleDarkLightMode}
+            onClick={() =>
+              props.toggleDarkLightMode(props.lightMode, props.setLightMode)
+            }
           >
             <div className="mobile__menu--list-link">
               <div className="mobile__menu--list-link-icon">

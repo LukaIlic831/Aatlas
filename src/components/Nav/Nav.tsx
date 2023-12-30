@@ -1,14 +1,17 @@
 import * as React from "react";
 import { Link, useLocation } from "react-router-dom";
-import NavUsernameSkeleton from "./Skeleton Loaders/NavUsernameSkeleton";
-import SignUp from "./Home/SignUp";
-import SignIn from "./Home/SignIn";
-import MobileNav from "./Mobile/MobileNav";
-import MobileMenu from "./Mobile/MobileMenu";
+import NavUsernameSkeleton from "../Skeleton Loaders/NavUsernameSkeleton";
+import SignUp from "../Home/SignUp";
+import SignIn from "../Home/SignIn";
+import MobileNav from "../Mobile/MobileNav";
+import MobileMenu from "../Mobile/MobileMenu";
+import { toggleDarkLightMode } from "../../utils/darkLightMode";
+import useAppContext from "../../hooks/useAppContext";
 
 interface INavProps {}
 
 const Nav: React.FunctionComponent<INavProps> = (props) => {
+  const { currentUser } = useAppContext();
   const location = useLocation();
   const [signUpVisible, setSignUpVisible] = React.useState<boolean>(false);
   const [signInVisible, setSignInVisible] = React.useState<boolean>(false);
@@ -21,20 +24,6 @@ const Nav: React.FunctionComponent<INavProps> = (props) => {
       ? localStorage.getItem("theme")!
       : "light-theme"
   );
-
-  const toggleDarkLightMode = () => {
-    if (lightMode === "light-theme") {
-      document.body.classList.add("dark-theme");
-      document.body.classList.remove("light-theme");
-      setLightMode("dark-theme");
-      localStorage.setItem("theme", "dark-theme");
-    } else {
-      document.body.classList.add("light-theme");
-      document.body.classList.remove("dark-theme");
-      setLightMode("light-theme");
-      localStorage.setItem("theme", "light-theme");
-    }
-  };
 
   React.useEffect(() => {
     const handleClickOutside = (event: Event) => {
@@ -83,7 +72,10 @@ const Nav: React.FunctionComponent<INavProps> = (props) => {
               </div>
             </Link>
           </li>
-          <li className="nav__list--item" onClick={toggleDarkLightMode}>
+          <li
+            className="nav__list--item"
+            onClick={() => toggleDarkLightMode(lightMode, setLightMode)}
+          >
             <div className="nav__list--item-link">
               <div className="nav__list--item-link-icon">
                 <svg
@@ -102,9 +94,19 @@ const Nav: React.FunctionComponent<INavProps> = (props) => {
             </div>
           </li>
         </ul>
-        <div className="nav__button">
-          <button onClick={() => setSignUpVisible(true)}>Join Aatlas</button>
-        </div>
+        {currentUser ? (
+          <div className="nav__profile">
+            {currentUser.user.user_metadata.username ? (
+              <button>{currentUser?.user.user_metadata.username}</button>
+            ) : (
+              <NavUsernameSkeleton />
+            )}
+          </div>
+        ) : (
+          <div className="nav__button">
+            <button onClick={() => setSignUpVisible(true)}>Join Aatlas</button>
+          </div>
+        )}
       </div>
       {signUpVisible && (
         <SignUp
@@ -124,7 +126,14 @@ const Nav: React.FunctionComponent<INavProps> = (props) => {
         setMobileMenuVisible={setMobileMenuVisible}
         setSignUpVisible={setSignUpVisible}
       />
-      {mobileMenuVisible && <MobileMenu mobileMenuRef={mobileMenuRef} toggleDarkLightMode={toggleDarkLightMode}/>}
+      {mobileMenuVisible && (
+        <MobileMenu
+          mobileMenuRef={mobileMenuRef}
+          toggleDarkLightMode={toggleDarkLightMode}
+          lightMode={lightMode}
+          setLightMode={setLightMode}
+        />
+      )}
     </>
   );
 };
