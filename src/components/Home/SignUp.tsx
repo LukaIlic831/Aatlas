@@ -1,6 +1,7 @@
 import * as React from "react";
 import SignUpError from "./Home Comps/SignUpError";
 import ButtonLoader from "../ButtonLoader";
+import signUpFeatures from "../../features/auth/signUp";
 
 interface ISignUpProps {
   setSignUpVisible: React.Dispatch<React.SetStateAction<boolean>>;
@@ -9,10 +10,6 @@ interface ISignUpProps {
 }
 
 const SignUp: React.FunctionComponent<ISignUpProps> = (props) => {
-  const openSignIn = () => {
-    props.setSignInVisible(true);
-    props.setSignUpVisible(false);
-  }
   return (
     <div className="auth__wrapper">
       <div className="auth-block" ref={props.blockRef}>
@@ -78,7 +75,17 @@ const SignUp: React.FunctionComponent<ISignUpProps> = (props) => {
             </div>
             <div className="auth-block__para--form-para">
               <p>
-                Already have an account? <span onClick={openSignIn}>Sign In</span>
+                Already have an account?{" "}
+                <span
+                  onClick={() =>
+                    signUpFeatures.openSignIn(
+                      props.setSignInVisible,
+                      props.setSignUpVisible
+                    )
+                  }
+                >
+                  Sign In
+                </span>
               </p>
             </div>
           </form>

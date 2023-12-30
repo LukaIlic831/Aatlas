@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import ButtonLoader from "../ButtonLoader";
+import signInFeatures from "../../features/auth/signIn";
 
 interface ISignInProps {
   setSignUpVisible: React.Dispatch<React.SetStateAction<boolean>>;
@@ -9,10 +10,9 @@ interface ISignInProps {
 }
 
 const SignIn: React.FunctionComponent<ISignInProps> = (props) => {
-  const openSignUp = () => {
-    props.setSignInVisible(false);
-    props.setSignUpVisible(true);
-  }
+  const [email, setEmail] = React.useState<string>("");
+  const [password, setPassword] = React.useState<string>("");
+  const [passwordType, setPasswordType] = React.useState<string>("password");
   return (
     <div className="auth__wrapper">
       <div className="auth-block" ref={props.blockRef}>
@@ -23,11 +23,21 @@ const SignIn: React.FunctionComponent<ISignInProps> = (props) => {
           <form className="auth-block__para--form">
             <div className="auth-block__para--form-block">
               <p>Email Address</p>
-              <input type="email" placeholder="Enter Email Address" required />
+              <input
+                type="email"
+                placeholder="Enter Email Address"
+                required
+                onChange={(event) => setEmail(event.target.value)}
+              />
             </div>
             <div className="auth-block__para--form-block">
               <p>Password</p>
-              <input type="password" placeholder="Enter Password" required />
+              <input
+                type={passwordType}
+                placeholder="Enter Password"
+                required
+                onChange={(event) => setPassword(event.target.value)}
+              />
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="20px"
@@ -35,6 +45,9 @@ const SignIn: React.FunctionComponent<ISignInProps> = (props) => {
                 className="show-password"
                 viewBox="0 0 24 24"
                 fill="none"
+                onClick={() =>
+                  signInFeatures.togglePassword(passwordType, setPasswordType)
+                }
               >
                 <path
                   d="M2 2L22 22"
@@ -97,7 +110,17 @@ const SignIn: React.FunctionComponent<ISignInProps> = (props) => {
             </div>
             <div className="auth-block__para--form-para">
               <p>
-                Don't have an account yet? <span onClick={openSignUp}>Sign Up</span>
+                Don't have an account yet?{" "}
+                <span
+                  onClick={() =>
+                    signInFeatures.openSignUp(
+                      props.setSignInVisible,
+                      props.setSignUpVisible
+                    )
+                  }
+                >
+                  Sign Up
+                </span>
               </p>
             </div>
           </form>
