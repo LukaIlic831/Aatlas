@@ -40,10 +40,21 @@ const handleSignin = async (
       }, 300);
 };
 
+const googleSignIn = async () => {
+  const { error } = await supabase.auth.signInWithOAuth({
+    provider: "google",
+    options: {
+      redirectTo: "http://localhost:3000/",
+    },
+  });
+  error && alert(error.message);
+};
+
 const signInFeatures = {
   openSignUp,
   togglePassword,
   handleSignin,
+  googleSignIn,
 };
 
 export default signInFeatures;

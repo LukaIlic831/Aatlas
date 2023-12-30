@@ -92,7 +92,10 @@ const SignIn: React.FunctionComponent<ISignInProps> = (props) => {
                 Forgot Password?
               </Link>
             </div>
-            <div className="auth-block__para--form-google">
+            <div
+              className="auth-block__para--form-google"
+              onClick={signInFeatures.googleSignIn}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 x="0px"
