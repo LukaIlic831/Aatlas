@@ -2,6 +2,7 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import ButtonLoader from "../ButtonLoader";
 import signInFeatures from "../../features/auth/signIn";
+import SignInError from "./Home Comps/SignInError";
 
 interface ISignInProps {
   setSignUpVisible: React.Dispatch<React.SetStateAction<boolean>>;
@@ -13,6 +14,8 @@ const SignIn: React.FunctionComponent<ISignInProps> = (props) => {
   const [email, setEmail] = React.useState<string>("");
   const [password, setPassword] = React.useState<string>("");
   const [passwordType, setPasswordType] = React.useState<string>("password");
+  const [invalidCredentials, setInvalidCredentials] =
+    React.useState<boolean>(false);
   return (
     <div className="auth__wrapper">
       <div className="auth-block" ref={props.blockRef}>
@@ -20,7 +23,19 @@ const SignIn: React.FunctionComponent<ISignInProps> = (props) => {
           <div className="auth-block__para--title">
             <h1>Log in to your account</h1>
           </div>
-          <form className="auth-block__para--form">
+          {invalidCredentials && <SignInError />}
+          <form
+            className="auth-block__para--form"
+            onSubmit={(e) =>
+              signInFeatures.handleSignin(
+                e,
+                setInvalidCredentials,
+                email,
+                password,
+                props.setSignInVisible
+              )
+            }
+          >
             <div className="auth-block__para--form-block">
               <p>Email Address</p>
               <input

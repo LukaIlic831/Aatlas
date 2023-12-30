@@ -1,3 +1,5 @@
+import supabase from "../../supabase";
+
 const openSignUp = (
   setSignInVisible: React.Dispatch<React.SetStateAction<boolean>>,
   setSignUpVisible: React.Dispatch<React.SetStateAction<boolean>>
@@ -17,9 +19,31 @@ const togglePassword = (
   setPasswordType("password");
 };
 
+const handleSignin = async (
+  event: React.FormEvent<HTMLFormElement>,
+  setInvalidCredentials: React.Dispatch<React.SetStateAction<boolean>>,
+  email: string,
+  password: string,
+  setSignInVisible: React.Dispatch<React.SetStateAction<boolean>>
+) => {
+  event.preventDefault();
+  setInvalidCredentials(false);
+  const { error } = await supabase.auth.signInWithPassword({
+    email: email,
+    password: password,
+  });
+
+  error?.message === "Invalid login credentials"
+    ? setInvalidCredentials(true)
+    : setTimeout(() => {
+        setSignInVisible(false);
+      }, 300);
+};
+
 const signInFeatures = {
-    openSignUp,
-    togglePassword
-  };
+  openSignUp,
+  togglePassword,
+  handleSignin,
+};
 
 export default signInFeatures;
