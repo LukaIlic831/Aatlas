@@ -4,7 +4,7 @@ import {
   INewPlace,
   IViewPort,
 } from "../../../ts/interfaces/create_post_interfaces";
-import mapBoxFeatures from "../../../features/createPost/mapBox/addLocation";
+import handleRetrive from "../../../features/createPost/mapBox/addLocation";
 
 interface ILocationOptionProps {
   openLocationOptionRef: React.MutableRefObject<HTMLDivElement | null>;
@@ -28,7 +28,7 @@ const LocationOption: React.FunctionComponent<ILocationOptionProps> = (
           accessToken={process.env.REACT_APP_MAPBOX_KEY!}
           value=""
           onRetrieve={(res) =>
-            mapBoxFeatures.handleRetrive(
+            handleRetrive(
               res,
               props.setViewPort,
               props.viewPort,

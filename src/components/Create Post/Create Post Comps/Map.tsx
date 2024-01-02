@@ -6,6 +6,7 @@ import {
 } from "../../../ts/interfaces/create_post_interfaces";
 import Pin from "../../Pin";
 import "mapbox-gl/dist/mapbox-gl.css";
+import changeLocation from "../../../features/createPost/mapBox/changeLocation";
 
 interface IMapProps {
   viewPort: IViewPort;
@@ -23,6 +24,7 @@ const Map: React.FunctionComponent<IMapProps> = (props) => {
         mapboxAccessToken={process.env.REACT_APP_MAPBOX_KEY!}
         mapStyle={process.env.REACT_APP_MAP_STYLE!}
         dragRotate={false}
+        onClick={(e) => changeLocation(e, props.setNewPlace)}
       >
         <Marker
           latitude={props.newPlace.latitude}

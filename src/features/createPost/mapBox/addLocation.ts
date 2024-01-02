@@ -22,7 +22,4 @@ const handleRetrive = (
   setShowImagePreview(false);
 };
 
-const mapBoxFeatures = {
-  handleRetrive,
-};
-export default mapBoxFeatures;
+export default handleRetrive;
