@@ -71,6 +71,7 @@ const Nav: React.FunctionComponent<INavProps> = (props) => {
         );
       });
   }, [blockRef, mobileMenuRef]);
+  
   return (
     <>
       <div className="nav">

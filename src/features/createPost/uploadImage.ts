@@ -1,4 +1,4 @@
-import toastMessage from "../../toasts/toasts";
+import toastError from "../../toasts/toastError";
 import {
   IImagePreview,
   INewPlace,
@@ -42,8 +42,8 @@ const uploadImage = (
     setImagePreview([...imagePreview, ...imagePreviewObject]);
   } else {
     !imageExsist
-      ? toastMessage.ImageUploadLimitExceeded()
-      : toastMessage.sameImageUpload();
+      ? toastError.ImageUploadLimitExceeded()
+      : toastError.sameImageUpload();
   }
   setShowImagePreview(true);
   setNewPlace(null);

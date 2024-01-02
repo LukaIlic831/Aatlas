@@ -14,6 +14,8 @@ import ShowImageBlock from "./Create Post Comps/ShowImageBlock";
 import LocationOption from "./Create Post Comps/LocationOption";
 import { handleClickOutsideCreatePost } from "../../utils/handleClickOutside/handleClickOutsideCreatePost";
 import Map from "./Create Post Comps/Map";
+import submitPost from "../../features/createPost/submitPost";
+import useAppContext from "../../hooks/useAppContext";
 
 interface ICreatePostBlockProps {}
 
@@ -21,6 +23,9 @@ const CreatePostBlock: React.FunctionComponent<ICreatePostBlockProps> = (
   props
 ) => {
   const navigate = useNavigate();
+  const { currentUser } = useAppContext();
+  const [title, setTitle] = React.useState<string>("");
+  const [description, setDescription] = React.useState<string>("");
   const [image, setImage] = React.useState<File[]>([]);
   const [imagePreview, setImagePreview] = React.useState<IImagePreview[]>([]);
   const [showImagePreview, setShowImagePreview] =
@@ -28,6 +33,7 @@ const CreatePostBlock: React.FunctionComponent<ICreatePostBlockProps> = (
   const openLocationOptionRef = React.useRef<HTMLDivElement | null>(null);
   const [openLocationOption, setOpenLocationOption] =
     React.useState<boolean>(false);
+  const [newPlace, setNewPlace] = React.useState<INewPlace | null>(null);
   const [categories, setCategories] = React.useState<IPostCategories>({
     selectedCategory: null,
     categories: [
@@ -66,7 +72,20 @@ const CreatePostBlock: React.FunctionComponent<ICreatePostBlockProps> = (
       right: 0,
     },
   });
-  const [newPlace, setNewPlace] = React.useState<INewPlace | null>(null);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    submitPost(
+      e,
+      categories,
+      newPlace!,
+      image,
+      viewPort,
+      currentUser?.user.id!,
+      title,
+      description
+    );
+    navigate("/");
+  };
 
   React.useEffect(() => {
     document.addEventListener("mouseup", (e) => {
@@ -95,7 +114,7 @@ const CreatePostBlock: React.FunctionComponent<ICreatePostBlockProps> = (
           <span> -</span>
         )}
       </div>
-      <form className="create-post__block">
+      <form className="create-post__block" onSubmit={(e) => handleSubmit(e)}>
         <div className="create-post__block--select">
           {categories.categories.map((category) => (
             <SelectLabel
@@ -106,7 +125,14 @@ const CreatePostBlock: React.FunctionComponent<ICreatePostBlockProps> = (
           ))}
         </div>
         <div className="create-post__block--input">
-          <input type="text" placeholder="Title" maxLength={200} required />
+          <input
+            type="text"
+            placeholder="Title"
+            maxLength={200}
+            required
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
         </div>
         <ul className="create-post__block--icons">
           <li
@@ -186,9 +212,11 @@ const CreatePostBlock: React.FunctionComponent<ICreatePostBlockProps> = (
         <div className="create-post__block--textarea">
           <TextareaAutosize
             placeholder="Text (optional)"
-            //value={}
             maxLength={2000}
-            //disabled
+            value={description}
+            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+              setDescription(e.currentTarget.value)
+            }
           />
         </div>
         {showImagePreview && (
