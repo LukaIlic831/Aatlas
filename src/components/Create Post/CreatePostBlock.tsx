@@ -130,7 +130,8 @@ const CreatePostBlock: React.FunctionComponent<ICreatePostBlockProps> = (
                     setImage,
                     image,
                     setImagePreview,
-                    setShowImagePreview
+                    setShowImagePreview,
+                    setNewPlace
                   )
                 }
               />

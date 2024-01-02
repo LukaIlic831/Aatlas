@@ -1,5 +1,8 @@
 import toastMessage from "../../toasts/toasts";
-import { IImagePreview } from "../../ts/interfaces/create_post_interfaces";
+import {
+  IImagePreview,
+  INewPlace,
+} from "../../ts/interfaces/create_post_interfaces";
 
 const findIfImageExsist = (files: FileList | null, image: File[]) => {
   let imageExsist = false;
@@ -18,7 +21,8 @@ const uploadImage = (
   setImage: React.Dispatch<React.SetStateAction<File[]>>,
   image: File[],
   setImagePreview: React.Dispatch<React.SetStateAction<IImagePreview[]>>,
-  setShowImagePreview: React.Dispatch<React.SetStateAction<boolean>>
+  setShowImagePreview: React.Dispatch<React.SetStateAction<boolean>>,
+  setNewPlace: React.Dispatch<React.SetStateAction<INewPlace | null>>
 ) => {
   let imageExsist = findIfImageExsist(event.target.files, image);
   if (
@@ -42,6 +46,7 @@ const uploadImage = (
       : toastMessage.sameImageUpload();
   }
   setShowImagePreview(true);
+  setNewPlace(null);
 };
 
 export default uploadImage;
