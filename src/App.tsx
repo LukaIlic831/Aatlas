@@ -26,6 +26,7 @@ function App() {
       setCurrentUser(session);
     });
   }, []);
+
   return (
     <AppContext.Provider
       value={{
