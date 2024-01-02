@@ -9,6 +9,25 @@ export interface IPostCategories {
 }
 
 export interface IImagePreview {
-    imageUrl: string;
-    name: string;
-  }
+  imageUrl: string;
+  name: string;
+}
+
+export interface IViewPort {
+  latitude: number;
+  longitude: number;
+  zoom: number;
+  pitch: number;
+  bearing: number;
+  padding: {
+    top: number;
+    bottom: number;
+    left: number;
+    right: number;
+  };
+}
+
+export interface INewPlace {
+  latitude: number;
+  longitude: number;
+}

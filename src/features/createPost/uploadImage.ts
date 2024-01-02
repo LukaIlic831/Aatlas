@@ -18,7 +18,7 @@ const uploadImage = (
   setImage: React.Dispatch<React.SetStateAction<File[]>>,
   image: File[],
   setImagePreview: React.Dispatch<React.SetStateAction<IImagePreview[]>>,
-  setShowImage: React.Dispatch<React.SetStateAction<boolean>>
+  setShowImagePreview: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
   let imageExsist = findIfImageExsist(event.target.files, image);
   if (
@@ -41,7 +41,7 @@ const uploadImage = (
       ? toastMessage.ImageUploadLimitExceeded()
       : toastMessage.sameImageUpload();
   }
-  setShowImage(true);
+  setShowImagePreview(true);
 };
 
 export default uploadImage;

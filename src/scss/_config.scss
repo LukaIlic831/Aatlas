@@ -274,3 +274,12 @@ ul {
     pointer-events: none;
   }
 }
+
+.close-map {
+  top: 16px !important;
+  left: 16px !important;
+}
+
+.mapboxgl-ctrl-logo, .mapboxgl-ctrl-bottom-right{
+  display: none !important;
+}

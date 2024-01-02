@@ -4,13 +4,16 @@ import ButtonLoader from "../ButtonLoader";
 import TextareaAutosize from "react-textarea-autosize";
 import {
   IImagePreview,
+  INewPlace,
   IPostCategories,
+  IViewPort,
 } from "../../ts/interfaces/create_post_interfaces";
 import SelectLabel from "./Create Post Comps/SelectLabel";
 import uploadImage from "../../features/createPost/uploadImage";
 import ShowImageBlock from "./Create Post Comps/ShowImageBlock";
 import LocationOption from "./Create Post Comps/LocationOption";
 import { handleClickOutsideCreatePost } from "../../utils/handleClickOutside/handleClickOutsideCreatePost";
+import Map from "./Create Post Comps/Map";
 
 interface ICreatePostBlockProps {}
 
@@ -20,7 +23,8 @@ const CreatePostBlock: React.FunctionComponent<ICreatePostBlockProps> = (
   const navigate = useNavigate();
   const [image, setImage] = React.useState<File[]>([]);
   const [imagePreview, setImagePreview] = React.useState<IImagePreview[]>([]);
-  const [showImage, setShowImage] = React.useState<boolean>(false);
+  const [showImagePreview, setShowImagePreview] =
+    React.useState<boolean>(false);
   const openLocationOptionRef = React.useRef<HTMLDivElement | null>(null);
   const [openLocationOption, setOpenLocationOption] =
     React.useState<boolean>(false);
@@ -49,6 +53,21 @@ const CreatePostBlock: React.FunctionComponent<ICreatePostBlockProps> = (
       },
     ],
   });
+  const [viewPort, setViewPort] = React.useState<IViewPort>({
+    latitude: 28.6448,
+    longitude: 77.216721,
+    zoom: 15,
+    pitch: 0,
+    bearing: 0,
+    padding: {
+      top: 0,
+      bottom: 0,
+      left: 0,
+      right: 0,
+    },
+  });
+  const [newPlace, setNewPlace] = React.useState<INewPlace | null>(null);
+
   React.useEffect(() => {
     document.addEventListener("mouseup", (e) => {
       handleClickOutsideCreatePost(
@@ -111,7 +130,7 @@ const CreatePostBlock: React.FunctionComponent<ICreatePostBlockProps> = (
                     setImage,
                     image,
                     setImagePreview,
-                    setShowImage
+                    setShowImagePreview
                   )
                 }
               />
@@ -153,7 +172,13 @@ const CreatePostBlock: React.FunctionComponent<ICreatePostBlockProps> = (
               </svg>
             </div>
             {openLocationOption && (
-              <LocationOption openLocationOptionRef={openLocationOptionRef} />
+              <LocationOption
+                openLocationOptionRef={openLocationOptionRef}
+                setViewPort={setViewPort}
+                viewPort={viewPort}
+                setNewPlace={setNewPlace}
+                setShowImagePreview={setShowImagePreview}
+              />
             )}
           </li>
         </ul>
@@ -165,11 +190,19 @@ const CreatePostBlock: React.FunctionComponent<ICreatePostBlockProps> = (
             //disabled
           />
         </div>
-        {showImage && (
+        {showImagePreview && (
           <ShowImageBlock
             imagePreview={imagePreview}
             setImagePreview={setImagePreview}
             setImage={setImage}
+          />
+        )}
+        {newPlace && (
+          <Map
+            viewPort={viewPort}
+            setViewPort={setViewPort}
+            newPlace={newPlace}
+            setNewPlace={setNewPlace}
           />
         )}
         <div className="create-post__block--buttons">
