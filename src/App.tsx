@@ -4,6 +4,8 @@ import appRoutes from "./router/routes";
 import { Session } from "@supabase/supabase-js";
 import supabase from "./supabase";
 import { IAppContext } from "./ts/interfaces/context_interfaces";
+import { Toaster } from "react-hot-toast";
+import toastOptions from "./toasts/toastOptions";
 export const AppContext = React.createContext<null | IAppContext>(null);
 
 function App() {
@@ -30,6 +32,7 @@ function App() {
         currentUser,
       }}
     >
+      <Toaster toastOptions={toastOptions} />
       <Router>
         <Routes>
           {appRoutes.routes.map((route) => (

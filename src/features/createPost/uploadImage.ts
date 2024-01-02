@@ -1,3 +1,4 @@
+import toastMessage from "../../toasts/toasts";
 import { IImagePreview } from "../../ts/interfaces/create_post_interfaces";
 
 const findIfImageExsist = (files: FileList | null, image: File[]) => {
@@ -5,7 +6,7 @@ const findIfImageExsist = (files: FileList | null, image: File[]) => {
   files &&
     Array.from(files).map((file) => {
       if (!imageExsist) {
-        image.find((img) => img.name === file.name);
+        image.find((img) => img.name === file.name) && (imageExsist = true);
       }
     });
   return imageExsist;
@@ -19,8 +20,9 @@ const uploadImage = (
   setImagePreview: React.Dispatch<React.SetStateAction<IImagePreview[]>>,
   setShowImage: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
+  let imageExsist = findIfImageExsist(event.target.files, image);
   if (
-    !findIfImageExsist(event.target.files, image) &&
+    !imageExsist &&
     event.target.files?.length! < 5 &&
     event.target.files?.length! + imagePreview.length < 5
   ) {
@@ -34,6 +36,10 @@ const uploadImage = (
     }));
 
     setImagePreview([...imagePreview, ...imagePreviewObject]);
+  } else {
+    !imageExsist
+      ? toastMessage.ImageUploadLimitExceeded()
+      : toastMessage.sameImageUpload();
   }
   setShowImage(true);
 };
