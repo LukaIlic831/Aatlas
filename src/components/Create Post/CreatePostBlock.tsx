@@ -2,6 +2,8 @@ import * as React from "react";
 import { useLocation, useNavigate } from "react-router";
 import ButtonLoader from "../ButtonLoader";
 import TextareaAutosize from "react-textarea-autosize";
+import { IPostCategories } from "../../ts/interfaces/create_post_interfaces";
+import SelectLabel from "./Create Post Comps/SelectLabel";
 
 interface ICreatePostBlockProps {}
 
@@ -9,14 +11,51 @@ const CreatePostBlock: React.FunctionComponent<ICreatePostBlockProps> = (
   props
 ) => {
   const navigate = useNavigate();
+  const [categories, setCategories] = React.useState<IPostCategories>({
+    selectedCategory: null,
+    categories: [
+      {
+        id: "category1",
+        text: "Anime",
+      },
+      {
+        id: "category2",
+        text: "Cooking",
+      },
+      {
+        id: "category3",
+        text: "Animals",
+      },
+      {
+        id: "category4",
+        text: "Sports",
+      },
+      {
+        id: "category5",
+        text: "Other",
+      },
+    ],
+  });
   return (
     <div className="create-post__wrapper">
       <div className="create-post__title">
         <p>Create post for</p>
-        <span> -</span>
+        {categories.selectedCategory ? (
+          <span> {categories.selectedCategory}</span>
+        ) : (
+          <span> -</span>
+        )}
       </div>
       <form className="create-post__block">
-        <div className="create-post__block--select"></div>
+        <div className="create-post__block--select">
+          {categories.categories.map((category) => (
+            <SelectLabel
+              category={category}
+              categories={categories}
+              setCategories={setCategories}
+            />
+          ))}
+        </div>
         <div className="create-post__block--input">
           <input type="text" placeholder="Title" maxLength={200} required />
         </div>
