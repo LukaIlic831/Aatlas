@@ -203,6 +203,7 @@ const CreatePostBlock: React.FunctionComponent<ICreatePostBlockProps> = (
             setViewPort={setViewPort}
             newPlace={newPlace}
             setNewPlace={setNewPlace}
+            setShowImagePreview={setShowImagePreview}
           />
         )}
         <div className="create-post__block--buttons">
