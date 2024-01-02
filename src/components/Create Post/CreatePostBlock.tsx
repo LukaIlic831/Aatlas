@@ -2,10 +2,15 @@ import * as React from "react";
 import { useLocation, useNavigate } from "react-router";
 import ButtonLoader from "../ButtonLoader";
 import TextareaAutosize from "react-textarea-autosize";
-import { IImagePreview, IPostCategories } from "../../ts/interfaces/create_post_interfaces";
+import {
+  IImagePreview,
+  IPostCategories,
+} from "../../ts/interfaces/create_post_interfaces";
 import SelectLabel from "./Create Post Comps/SelectLabel";
 import uploadImage from "../../features/createPost/uploadImage";
 import ShowImageBlock from "./Create Post Comps/ShowImageBlock";
+import LocationOption from "./Create Post Comps/LocationOption";
+import { handleClickOutsideCreatePost } from "../../utils/handleClickOutside/handleClickOutsideCreatePost";
 
 interface ICreatePostBlockProps {}
 
@@ -16,6 +21,9 @@ const CreatePostBlock: React.FunctionComponent<ICreatePostBlockProps> = (
   const [image, setImage] = React.useState<File[]>([]);
   const [imagePreview, setImagePreview] = React.useState<IImagePreview[]>([]);
   const [showImage, setShowImage] = React.useState<boolean>(false);
+  const openLocationOptionRef = React.useRef<HTMLDivElement | null>(null);
+  const [openLocationOption, setOpenLocationOption] =
+    React.useState<boolean>(false);
   const [categories, setCategories] = React.useState<IPostCategories>({
     selectedCategory: null,
     categories: [
@@ -41,6 +49,23 @@ const CreatePostBlock: React.FunctionComponent<ICreatePostBlockProps> = (
       },
     ],
   });
+  React.useEffect(() => {
+    document.addEventListener("mouseup", (e) => {
+      handleClickOutsideCreatePost(
+        e,
+        openLocationOptionRef,
+        setOpenLocationOption
+      );
+    });
+    return () =>
+      document.removeEventListener("mouseup", (e) => {
+        handleClickOutsideCreatePost(
+          e,
+          openLocationOptionRef,
+          setOpenLocationOption
+        );
+      });
+  }, [openLocationOptionRef]);
   return (
     <div className="create-post__wrapper">
       <div className="create-post__title">
@@ -79,7 +104,16 @@ const CreatePostBlock: React.FunctionComponent<ICreatePostBlockProps> = (
                 className="hidden-input-file"
                 accept="image/png, image/gif, image/jpeg"
                 value=""
-                onChange={(e) => uploadImage(e, imagePreview, setImage,image, setImagePreview, setShowImage)}
+                onChange={(e) =>
+                  uploadImage(
+                    e,
+                    imagePreview,
+                    setImage,
+                    image,
+                    setImagePreview,
+                    setShowImage
+                  )
+                }
               />
               <div className="create-post__block--icons-icon">
                 <svg
@@ -102,7 +136,10 @@ const CreatePostBlock: React.FunctionComponent<ICreatePostBlockProps> = (
               position: "relative",
             }}
           >
-            <div className="create-post__block--icons-icon">
+            <div
+              className="create-post__block--icons-icon"
+              onClick={() => setOpenLocationOption(true)}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 version="1.1"
@@ -115,6 +152,9 @@ const CreatePostBlock: React.FunctionComponent<ICreatePostBlockProps> = (
                 <path d="M29.9,28.6l-4-8C25.7,20.2,25.4,20,25,20h-1.2c-2.4,3.6-5.4,6-6,6.4C17.3,26.8,16.7,27,16,27s-1.3-0.2-1.8-0.6  c-0.5-0.4-3.6-2.8-6-6.4H7c-0.4,0-0.7,0.2-0.9,0.6l-4,8c-0.2,0.3-0.1,0.7,0,1S2.7,30,3,30h26c0.3,0,0.7-0.2,0.9-0.5  S30,28.9,29.9,28.6z" />
               </svg>
             </div>
+            {openLocationOption && (
+              <LocationOption openLocationOptionRef={openLocationOptionRef} />
+            )}
           </li>
         </ul>
         <div className="create-post__block--textarea">

@@ -8,6 +8,7 @@ import MobileMenu from "../Mobile/MobileMenu";
 import { toggleDarkLightMode } from "../../utils/darkLightMode";
 import useAppContext from "../../hooks/useAppContext";
 import ProfileBlock from "./Nav Comps/ProfileBlock";
+import { handleClickOutsideNav } from "../../utils/handleClickOutside/handleClickOutsideNav";
 
 interface INavProps {}
 
@@ -44,8 +45,31 @@ const Nav: React.FunctionComponent<INavProps> = (props) => {
         setProfileBlockVisible(false);
       }
     };
-    document.addEventListener("mouseup", handleClickOutside);
-    return () => document.removeEventListener("mouseup", handleClickOutside);
+    document.addEventListener("mouseup", (e) => {
+      handleClickOutsideNav(
+        e,
+        blockRef,
+        setSignUpVisible,
+        setSignInVisible,
+        mobileMenuRef,
+        setMobileMenuVisible,
+        profileBlockRef,
+        setProfileBlockVisible
+      );
+    });
+    return () =>
+      document.removeEventListener("mouseup", (e) => {
+        handleClickOutsideNav(
+          e,
+          blockRef,
+          setSignUpVisible,
+          setSignInVisible,
+          mobileMenuRef,
+          setMobileMenuVisible,
+          profileBlockRef,
+          setProfileBlockVisible
+        );
+      });
   }, [blockRef, mobileMenuRef]);
   return (
     <>
