@@ -2,8 +2,10 @@ import * as React from "react";
 import { useLocation, useNavigate } from "react-router";
 import ButtonLoader from "../ButtonLoader";
 import TextareaAutosize from "react-textarea-autosize";
-import { IPostCategories } from "../../ts/interfaces/create_post_interfaces";
+import { IImagePreview, IPostCategories } from "../../ts/interfaces/create_post_interfaces";
 import SelectLabel from "./Create Post Comps/SelectLabel";
+import uploadImage from "../../features/createPost/uploadImage";
+import ShowImageBlock from "./Create Post Comps/ShowImageBlock";
 
 interface ICreatePostBlockProps {}
 
@@ -11,6 +13,9 @@ const CreatePostBlock: React.FunctionComponent<ICreatePostBlockProps> = (
   props
 ) => {
   const navigate = useNavigate();
+  const [image, setImage] = React.useState<File[]>([]);
+  const [imagePreview, setImagePreview] = React.useState<IImagePreview[]>([]);
+  const [showImage, setShowImage] = React.useState<boolean>(false);
   const [categories, setCategories] = React.useState<IPostCategories>({
     selectedCategory: null,
     categories: [
@@ -74,6 +79,7 @@ const CreatePostBlock: React.FunctionComponent<ICreatePostBlockProps> = (
                 className="hidden-input-file"
                 accept="image/png, image/gif, image/jpeg"
                 value=""
+                onChange={(e) => uploadImage(e, imagePreview, setImage,image, setImagePreview, setShowImage)}
               />
               <div className="create-post__block--icons-icon">
                 <svg
@@ -119,6 +125,13 @@ const CreatePostBlock: React.FunctionComponent<ICreatePostBlockProps> = (
             //disabled
           />
         </div>
+        {showImage && (
+          <ShowImageBlock
+            imagePreview={imagePreview}
+            setImagePreview={setImagePreview}
+            setImage={setImage}
+          />
+        )}
         <div className="create-post__block--buttons">
           <button
             type="button"
