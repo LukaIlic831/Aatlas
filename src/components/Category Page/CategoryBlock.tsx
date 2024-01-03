@@ -12,6 +12,7 @@ const CategoryBlock: React.FunctionComponent<ICategoryBlockProps> = (props) => {
   const categories = useFetchSupabase<ICategory[]>("category", "*");
   const posts = useFetchSupabase<IPost[]>("post", "*,user(*), location(*)");
   const { name } = useParams();
+  console.log(posts)
   return (
     <div className="category-page__wrapper">
       {categories.data

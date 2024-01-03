@@ -19,7 +19,7 @@ const useFetchWithFilter = <T>(
         : setData(data.length === 0 ? null : (data as T));
     };
     fetchData();
-  }, []);
+  }, [filterString]);
   return { data };
 };
 

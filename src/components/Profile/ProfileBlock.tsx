@@ -5,12 +5,20 @@ import ProfileSkeleton from "../Skeleton Loaders/ProfileSkeleton";
 import useFetchWithFilter from "../../hooks/useFetchWithFilter";
 import { IUserProfile } from "../../ts/interfaces/profile_interfaces";
 import useDate from "../../hooks/useDate";
+import { IPost } from "../../ts/interfaces/post_interfaces";
+import ProfilePosts from "./Profile Coms/ProfilePosts";
 
 interface IProfileBlockProps {}
 
 const ProfileBlock: React.FunctionComponent<IProfileBlockProps> = (props) => {
   const { id } = useParams();
   const thisUser = useFetchWithFilter<IUserProfile[]>("user", "*", "id", id!);
+  const posts = useFetchWithFilter<IPost[]>(
+    "post",
+    "*,user(*), location(*)",
+    "creator",
+    id!
+  );
   const dateCreated = useDate(
     thisUser.data ? thisUser.data[0].date_created : null
   );
@@ -28,6 +36,7 @@ const ProfileBlock: React.FunctionComponent<IProfileBlockProps> = (props) => {
           <p>Sorry, profile not found.</p>
         )}
       </div>
+      {thisUser.data && <ProfilePosts posts={posts.data} />}
     </div>
   );
 };
