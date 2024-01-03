@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useLocation, useNavigate } from "react-router";
-import PostOptions from "../PostOptions";
+import PostOptions from "./Post Comps/PostOptions";
 import Moment from "react-moment";
 import { IPost } from "../../ts/interfaces/post_interfaces";
 import useAppContext from "../../hooks/useAppContext";
