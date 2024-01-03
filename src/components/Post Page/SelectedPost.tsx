@@ -11,7 +11,12 @@ interface ISelectedPostProps {}
 const SelectedPost: React.FunctionComponent<ISelectedPostProps> = (props) => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const post = useFetchWithFilter<IPost[]>("post", "*", "id", id!);
+  const post = useFetchWithFilter<IPost[]>(
+    "post",
+    "*,user(*), location(*)",
+    "id",
+    id!
+  );
   return (
     <div className="post__wrapper">
       <form>
