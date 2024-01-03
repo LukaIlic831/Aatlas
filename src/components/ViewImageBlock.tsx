@@ -1,18 +1,28 @@
 import * as React from "react";
 
 interface IViewImageBlockProps {
-  openImageRef: React.MutableRefObject<HTMLDivElement | null>;
-  viewImage: string;
+  postImageRef: React.MutableRefObject<HTMLDivElement | null>;
+  imageSrc: string;
+  setImageVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const ViewImageBlock: React.FunctionComponent<IViewImageBlockProps> = (
   props
 ) => {
+  React.useEffect(() => {
+    const handleClickOutside = (e: Event) => {
+      if (!props.postImageRef.current?.contains(e.target as Node)) {
+        props.setImageVisible(false);
+      }
+    };
+    document.addEventListener("mouseup", handleClickOutside);
+    return () => document.removeEventListener("mouseup", handleClickOutside);
+  }, [props.postImageRef]);
   return (
     <div className="view__image--wrapper">
       <div className="view__image">
-        <div className="view__image--block" ref={props.openImageRef}>
-          <img src={props.viewImage} alt="" />
+        <div className="view__image--block" ref={props.postImageRef}>
+          <img src={props.imageSrc} alt="" />
         </div>
       </div>
     </div>
