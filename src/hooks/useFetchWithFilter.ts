@@ -14,7 +14,9 @@ const useFetchWithFilter = <T>(
         .from(tableName!)
         .select(selectString)
         .eq(columnName, filterString);
-      error ? alert(error.message) : setData(data as T);
+      error
+        ? alert(error.message)
+        : setData(data.length === 0 ? null : (data as T));
     };
     fetchData();
   }, []);
