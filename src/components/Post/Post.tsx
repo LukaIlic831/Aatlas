@@ -26,11 +26,21 @@ const Post: React.FunctionComponent<IPostProps> = (props) => {
   const handleClickPost = () => {
     !location.pathname.includes("/post") && navigate(`/post/${props.post?.id}`);
   };
+  const handleUsernameClick = (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
+    event.stopPropagation();
+    navigate(`/profile/${props.post.user?.id}`);
+  };
+
   return (
     <div className="post" onClick={handleClickPost}>
       <div className="post__desc">
         <div className="post__desc--username">
-          <div className="post__desc--username-name">
+          <div
+            className="post__desc--username-name"
+            onClick={(e) => handleUsernameClick(e)}
+          >
             <p>{props.post.user?.username}</p>
           </div>
           <div className="post__desc--username-para">
