@@ -17,9 +17,10 @@
       padding: 0 !important;
       cursor: default !important;
       margin-bottom: 0 !important;
-
-      img {
-        cursor: pointer !important;
+      .post__image {
+        img {
+          cursor: pointer;
+        }
       }
 
       .items__item:last-child {

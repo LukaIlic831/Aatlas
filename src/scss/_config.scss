@@ -250,9 +250,10 @@ ul {
         width: 84vw;
       }
 
-      img {
+      .view__img {
         height: 100%;
         object-fit: contain;
+        cursor: default !important;
       }
     }
   }
@@ -280,6 +281,7 @@ ul {
   left: 16px !important;
 }
 
-.mapboxgl-ctrl-logo, .mapboxgl-ctrl-bottom-right{
+.mapboxgl-ctrl-logo,
+.mapboxgl-ctrl-bottom-right {
   display: none !important;
 }

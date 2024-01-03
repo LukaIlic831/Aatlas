@@ -22,7 +22,7 @@ const ViewImageBlock: React.FunctionComponent<IViewImageBlockProps> = (
     <div className="view__image--wrapper">
       <div className="view__image">
         <div className="view__image--block" ref={props.postImageRef}>
-          <img src={props.imageSrc} alt="" />
+          <img src={props.imageSrc} alt="" className="view__img" />
         </div>
       </div>
     </div>
