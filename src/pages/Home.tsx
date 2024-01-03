@@ -11,7 +11,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
 
   React.useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
-      !session?.user.user_metadata.username && navigate("/add-username");
+      session && !session.user.user_metadata.username && navigate("/add-username");
     });
   }, []);
   return (
