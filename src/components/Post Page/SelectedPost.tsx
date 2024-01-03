@@ -1,5 +1,5 @@
 import * as React from "react";
-import Post from "../Post";
+import Post from "../Post/Post";
 import Comment from "./Post Page Components/Comment";
 import { useNavigate, useParams } from "react-router";
 import ReactTextareaAutosize from "react-textarea-autosize";
@@ -29,7 +29,6 @@ const SelectedPost: React.FunctionComponent<ISelectedPostProps> = (props) => {
               </svg>
             </div>
           </div>
-          <Post />
           <div className="post__comment">
             <ReactTextareaAutosize
               placeholder="What do you have in mind?"

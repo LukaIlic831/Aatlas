@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useLocation, useParams } from "react-router";
-import Post from "../Post";
+import Post from "../Post/Post";
 import ProfileSkeleton from "../Skeleton Loaders/ProfileSkeleton";
 
 interface IProfileBlockProps {

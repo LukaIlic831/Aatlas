@@ -6,7 +6,7 @@ import useFetchSupabase from "../../hooks/useFetchSupabase";
 interface ICategoriesProps {}
 
 const Categories: React.FunctionComponent<ICategoriesProps> = (props) => {
-  const categories = useFetchSupabase<ICategory[]>("category");
+  const categories = useFetchSupabase<ICategory[]>("category", "*");
   return (
     <div className="categories__wrapper">
       {categories.data
