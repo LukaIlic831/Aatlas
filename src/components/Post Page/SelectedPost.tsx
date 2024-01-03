@@ -1,12 +1,16 @@
 import * as React from "react";
 import Post from "../Post/Post";
 import Comment from "./Post Page Components/Comment";
-import { useNavigate, useParams } from "react-router";
+import { useParams } from "react-router";
 import ReactTextareaAutosize from "react-textarea-autosize";
+import useFetchWithFilter from "../../hooks/useFetchWithFilter";
+import { IPost } from "../../ts/interfaces/post_interfaces";
 
 interface ISelectedPostProps {}
 
 const SelectedPost: React.FunctionComponent<ISelectedPostProps> = (props) => {
+  const { id } = useParams();
+  const post = useFetchWithFilter<IPost[]>("post", "*", "id", id!);
   return (
     <div className="post__wrapper">
       <form>
@@ -29,6 +33,7 @@ const SelectedPost: React.FunctionComponent<ISelectedPostProps> = (props) => {
               </svg>
             </div>
           </div>
+          {post.data && <Post post={post.data[0]} />}
           <div className="post__comment">
             <ReactTextareaAutosize
               placeholder="What do you have in mind?"

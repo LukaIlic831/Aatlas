@@ -13,6 +13,8 @@ interface IPostProps {
 
 const Post: React.FunctionComponent<IPostProps> = (props) => {
   const { currentUser } = useAppContext();
+  const navigate = useNavigate();
+  const location = useLocation();
   const [optionsVisible, setOptionsVisible] = React.useState<boolean>(false);
   const handleOptions = (
     event: React.MouseEvent<SVGSVGElement, MouseEvent>
@@ -20,8 +22,12 @@ const Post: React.FunctionComponent<IPostProps> = (props) => {
     event.stopPropagation();
     setOptionsVisible(!optionsVisible);
   };
+
+  const handleClickPost = () => {
+    !location.pathname.includes("/post") && navigate(`/post/${props.post?.id}`);
+  };
   return (
-    <div className="post">
+    <div className="post" onClick={handleClickPost}>
       <div className="post__desc">
         <div className="post__desc--username">
           <div className="post__desc--username-name">
