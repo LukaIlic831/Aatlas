@@ -1,7 +1,7 @@
 import * as React from "react";
 import Post from "../Post/Post";
 import Comment from "./Post Page Components/Comment";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import ReactTextareaAutosize from "react-textarea-autosize";
 import useFetchWithFilter from "../../hooks/useFetchWithFilter";
 import { IPost } from "../../ts/interfaces/post_interfaces";
@@ -10,13 +10,14 @@ interface ISelectedPostProps {}
 
 const SelectedPost: React.FunctionComponent<ISelectedPostProps> = (props) => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const post = useFetchWithFilter<IPost[]>("post", "*", "id", id!);
   return (
     <div className="post__wrapper">
       <form>
         <div className="post__block cursor-block">
           <div className="post__back">
-            <div className="post__back--icon">
+            <div className="post__back--icon" onClick={() => navigate(-1)}>
               <svg
                 stroke="currentColor"
                 fill="currentColor"
