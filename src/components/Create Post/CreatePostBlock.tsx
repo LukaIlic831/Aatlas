@@ -82,9 +82,9 @@ const CreatePostBlock: React.FunctionComponent<ICreatePostBlockProps> = (
       viewPort,
       currentUser?.user.id!,
       title,
-      description
+      description,
+      navigate
     );
-    navigate("/");
   };
 
   React.useEffect(() => {

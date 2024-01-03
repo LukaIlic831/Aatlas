@@ -1,3 +1,4 @@
+import { NavigateFunction } from "react-router-dom";
 import supabase from "../../supabase";
 import toastError from "../../toasts/toastError";
 import toastSuccess from "../../toasts/toastSuccess";
@@ -22,7 +23,8 @@ const submitPost = async (
   viewPort: IViewPort,
   currentUserId: string,
   title: string,
-  desc: string
+  desc: string,
+  navigate: NavigateFunction
 ) => {
   event.preventDefault();
   if (categories.selectedCategory) {
@@ -48,6 +50,7 @@ const submitPost = async (
       categories.selectedCategory,
       locationId
     );
+    navigate("/");
   } else {
     toastError.categoryNotSelected();
   }
