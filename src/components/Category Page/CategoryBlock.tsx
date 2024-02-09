@@ -12,7 +12,7 @@ const CategoryBlock: React.FunctionComponent<ICategoryBlockProps> = (props) => {
   const categories = useFetchSupabase<ICategory[]>("category", "*");
   const posts = useFetchSupabase<IPost[]>("post", "*,user(*), location(*)");
   const { name } = useParams();
-  console.log(posts)
+  console.log(posts);
   return (
     <div className="category-page__wrapper">
       {categories.data
@@ -20,11 +20,15 @@ const CategoryBlock: React.FunctionComponent<ICategoryBlockProps> = (props) => {
         .map((category) => (
           <Category category={category} />
         ))}
-      {posts.data
-        ?.filter((post) => post.category_id === name)
-        .map((post) => (
-          <Post post={post} />
-        ))}
+      {categories.data &&
+        posts.data
+          ?.filter((post) => post.category_id === name)
+          .sort(
+            (a, b) =>
+              new Date(b.date_created!).getTime() -
+              new Date(a.date_created!).getTime()
+          )
+          .map((post) => <Post post={post} />)}
     </div>
   );
 };

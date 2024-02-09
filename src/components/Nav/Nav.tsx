@@ -32,19 +32,6 @@ const Nav: React.FunctionComponent<INavProps> = (props) => {
     React.useState<boolean>(false);
 
   React.useEffect(() => {
-    const handleClickOutside = (event: Event) => {
-      if (!blockRef.current?.contains(event.target as Node)) {
-        setSignUpVisible(false);
-        setSignInVisible(false);
-        document.body.style.overflowY = "auto";
-      }
-      if (!mobileMenuRef.current?.contains(event.target as Node)) {
-        setMobileMenuVisible(false);
-      }
-      if (!profileBlockRef.current?.contains(event.target as Node)) {
-        setProfileBlockVisible(false);
-      }
-    };
     document.addEventListener("mouseup", (e) => {
       handleClickOutsideNav(
         e,

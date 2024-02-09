@@ -6,10 +6,10 @@ const sameImageUpload = () => toast.error("Image has already been uploaded");
 const categoryNotSelected = () =>
   toast.error("You must choose at least one category");
 
-const toastMessage = {
+const toastError = {
   ImageUploadLimitExceeded,
   sameImageUpload,
   categoryNotSelected,
 };
 
-export default toastMessage;
+export default toastError;
