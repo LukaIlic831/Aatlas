@@ -1,18 +1,62 @@
 import * as React from "react";
-import { ReactComponent as Likes } from "../../../../assets/likes.svg";
+import { ReactComponent as LikeSvg } from "../../../../assets/likes.svg";
+import { ReactComponent as LikeFill } from "../../../../assets/likesFill.svg";
+import addLikedPost from "../../../../features/postLikes/addLike";
+import { IPost } from "../../../../ts/interfaces/post_interfaces";
+import useAppContext from "../../../../hooks/useAppContext";
+import deleteLikedPost from "../../../../features/postLikes/deleteLike";
+import toastError from "../../../../toasts/toastError";
 
 interface IPostLikesProps {
   likes: number;
+  likedPostFromCreator: boolean;
+  post: IPost;
 }
 
 const PostLikes: React.FunctionComponent<IPostLikesProps> = (props) => {
+  const [likes, setLikes] = React.useState<number>(props.likes);
+  const [liked, setLiked] = React.useState<boolean>(props.likedPostFromCreator);
+  const [likedDisabled, setLikedDisabled] = React.useState<boolean>(false);
+  const { currentUser } = useAppContext();
+  const likePost = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
+    e.stopPropagation();
+    if (!currentUser?.user.id) {
+      toastError.likeError();
+    } else {
+      setLikedDisabled(true);
+      if (liked) {
+        setLikes((prevLikes) => prevLikes - 1);
+        setLiked(false);
+        deleteLikedPost(
+          currentUser?.user.id!,
+          props.post.id,
+          likes,
+          setLikedDisabled
+        );
+      } else {
+        setLikes((prevLikes) => prevLikes + 1);
+        setLiked(true);
+        addLikedPost(
+          currentUser?.user.id!,
+          props.post.id,
+          likes,
+          setLikedDisabled
+        );
+      }
+    }
+  };
+
   return (
-    <li className="post__items--item items__item">
+    <li
+      className="post__items--item items__item"
+      onClick={(e) => likePost(e)}
+      style={{ pointerEvents: likedDisabled ? "none" : "auto" }}
+    >
       <div className="post__items--item-icon items__item--icon">
-        <Likes />
+        {liked ? <LikeFill /> : <LikeSvg />}
       </div>
       <div className="post__items--item-count items__item--count">
-        <span>{props.likes}</span>
+        <span>{likes}</span>
       </div>
     </li>
   );

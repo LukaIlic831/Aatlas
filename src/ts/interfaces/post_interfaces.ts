@@ -1,5 +1,11 @@
 import { IImagePreview } from "./create_post_interfaces";
 
+export interface ILikedPost {
+  id:string | null;
+  post_id:string | null;
+  user_id:string | null;
+}
+
 export interface IPost {
   category_id: string | null;
   comments: number | null;
@@ -11,6 +17,7 @@ export interface IPost {
   likes: number | null;
   location_id: string | null;
   title: string | null;
+  likedPost:ILikedPost[] | null;
   user: {
     id: string;
     username: string | null;
@@ -20,5 +27,4 @@ export interface IPost {
     longitude: number | null;
     zoom: number | null;
   } | null;
-  isLiked?: boolean;
 }

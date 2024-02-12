@@ -13,7 +13,7 @@ const SelectedPost: React.FunctionComponent<ISelectedPostProps> = (props) => {
   const navigate = useNavigate();
   const post = useFetchWithFilter<IPost[]>(
     "post",
-    "*,user(*), location(*)",
+    "*,user(*), location(*), likedPost(*)",
     "id",
     id!
   );

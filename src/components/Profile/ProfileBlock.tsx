@@ -15,7 +15,7 @@ const ProfileBlock: React.FunctionComponent<IProfileBlockProps> = (props) => {
   const thisUser = useFetchWithFilter<IUserProfile[]>("user", "*", "id", id!);
   const posts = useFetchWithFilter<IPost[]>(
     "post",
-    "*,user(*), location(*)",
+    "*,user(*), location(*), likedPost(*)",
     "creator",
     id!
   );

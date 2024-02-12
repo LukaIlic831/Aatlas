@@ -35,7 +35,7 @@ const ProfileBlock: React.FunctionComponent<IProfileBlockProps> = (props) => {
       <li className="nav__profile--list-item">
         <div
           className="nav__profile--list-item-link"
-          onClick={() => signOut(props.navigate, props.location)}
+          onClick={() => signOut(props.navigate)}
         >
           <div className="nav__profile--list-item-link-icon">
             <svg

@@ -83,7 +83,18 @@ const Post: React.FunctionComponent<IPostProps> = (props) => {
       </div>
       {props.post.image?.length! > 0 && <PostImages post={props.post} />}
       {props.post.location_id && <PostLocation post={props.post} />}
-      <PostItems likes={props.post.likes!} comments={props.post.comments!} />
+      <PostItems
+        post = {props.post}
+        likes={props.post.likes!}
+        comments={props.post.comments!}
+        likedPostFromCreator={Boolean(
+          props.post.likedPost?.find(
+            (likedPost) =>
+              likedPost.post_id == props.post.id &&
+              likedPost.user_id == currentUser?.user.id
+          )
+        )}
+      />
     </div>
   );
 };

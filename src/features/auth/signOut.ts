@@ -1,10 +1,10 @@
 import { Location, NavigateFunction } from "react-router-dom";
 import supabase from "../../supabase";
 
-const signOut = async (navigate: NavigateFunction, location: Location<any>) => {
+const signOut = async (navigate: NavigateFunction) => {
   const { error } = await supabase.auth.signOut();
   error && alert(error.message);
-  location.pathname.includes("/profile") && navigate("/");
+  navigate("/");
 };
 
 export default signOut;
