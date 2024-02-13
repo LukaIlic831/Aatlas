@@ -1,9 +1,9 @@
 import { IImagePreview } from "./create_post_interfaces";
 
 export interface ILikedPost {
-  id:string | null;
-  post_id:string | null;
-  user_id:string | null;
+  id: string | null;
+  post_id: string | null;
+  user_id: string | null;
 }
 
 export interface IPost {
@@ -17,7 +17,7 @@ export interface IPost {
   likes: number | null;
   location_id: string | null;
   title: string | null;
-  likedPost:ILikedPost[] | null;
+  likedPost: ILikedPost[] | null;
   user: {
     id: string;
     username: string | null;
@@ -26,5 +26,20 @@ export interface IPost {
     latitude: number | null;
     longitude: number | null;
     zoom: number | null;
+  } | null;
+}
+
+export interface IPostComment {
+  comments: number | null;
+  creator: string | null;
+  date_created: string | null;
+  description: string | null;
+  id: string;
+  likes: number | null;
+  parent: string | null;
+  post_id: string | null;
+  user: {
+    id: string;
+    username: string | null;
   } | null;
 }

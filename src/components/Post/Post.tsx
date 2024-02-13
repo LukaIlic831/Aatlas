@@ -87,7 +87,7 @@ const Post: React.FunctionComponent<IPostProps> = (props) => {
         post = {props.post}
         likes={props.post.likes!}
         comments={props.post.comments!}
-        likedPostFromCreator={Boolean(
+        likedPostFromCurrentUser={Boolean(
           props.post.likedPost?.find(
             (likedPost) =>
               likedPost.post_id == props.post.id &&

@@ -9,13 +9,15 @@ import toastError from "../../../../toasts/toastError";
 
 interface IPostLikesProps {
   likes: number;
-  likedPostFromCreator: boolean;
+  likedPostFromCurrentUser: boolean;
   post: IPost;
 }
 
 const PostLikes: React.FunctionComponent<IPostLikesProps> = (props) => {
   const [likes, setLikes] = React.useState<number>(props.likes);
-  const [liked, setLiked] = React.useState<boolean>(props.likedPostFromCreator);
+  const [liked, setLiked] = React.useState<boolean>(
+    props.likedPostFromCurrentUser
+  );
   const [likedDisabled, setLikedDisabled] = React.useState<boolean>(false);
   const { currentUser } = useAppContext();
   const likePost = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
