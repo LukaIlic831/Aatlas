@@ -1,8 +1,9 @@
 import * as React from "react";
 import Moment from "react-moment";
 import { useNavigate, useParams } from "react-router";
-import { IPostComment } from "../../../ts/interfaces/post_interfaces";
 import CommentItems from "./Comment Comps/CommentItems";
+import { IPostComment } from "../../../ts/interfaces/comment_interfaces";
+import useAppContext from "../../../hooks/useAppContext";
 
 interface ICommentProps {
   com: IPostComment;
@@ -10,6 +11,7 @@ interface ICommentProps {
 }
 
 const Comment: React.FunctionComponent<ICommentProps> = (props) => {
+  const { currentUser } = useAppContext();
   return (
     <div className="comment">
       <div className="comment__align">
@@ -36,7 +38,16 @@ const Comment: React.FunctionComponent<ICommentProps> = (props) => {
             <div className="comment__info--text">
               <p>{props.com.description}</p>
             </div>
-            <CommentItems com={props.com} />
+            <CommentItems
+              com={props.com}
+              likedCommentFromCurrentUser={Boolean(
+                props.com.likedComment.find(
+                  (likedComment) =>
+                    likedComment.post_id == props.com.post_id &&
+                    likedComment.user_id == currentUser?.user.id
+                )
+              )}
+            />
           </div>
         </div>
       </div>

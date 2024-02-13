@@ -28,18 +28,3 @@ export interface IPost {
     zoom: number | null;
   } | null;
 }
-
-export interface IPostComment {
-  comments: number | null;
-  creator: string | null;
-  date_created: string | null;
-  description: string | null;
-  id: string;
-  likes: number | null;
-  parent: string | null;
-  post_id: string | null;
-  user: {
-    id: string;
-    username: string | null;
-  } | null;
-}

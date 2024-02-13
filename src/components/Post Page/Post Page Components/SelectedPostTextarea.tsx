@@ -8,6 +8,7 @@ interface ISelectedPostTextareaProps {
   postId: string;
   currentUserId: string;
   fetchComments: () => Promise<void>;
+  postCommentsNumber: number;
 }
 
 const SelectedPostTextarea: React.FunctionComponent<
@@ -33,7 +34,8 @@ const SelectedPostTextarea: React.FunctionComponent<
               props.postId,
               props.currentUserId,
               props.commentText,
-              props.fetchComments
+              props.fetchComments,
+              props.postCommentsNumber
             )
           }
         >

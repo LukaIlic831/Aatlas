@@ -4,12 +4,13 @@ import Comment from "./Post Page Components/Comment";
 import { useNavigate, useParams } from "react-router";
 import ReactTextareaAutosize from "react-textarea-autosize";
 import useFetchWithFilter from "../../hooks/useFetchWithFilter";
-import { IPost, IPostComment } from "../../ts/interfaces/post_interfaces";
+import { IPost } from "../../ts/interfaces/post_interfaces";
 import addComment from "../../features/postComments/addComment";
 import useAppContext from "../../hooks/useAppContext";
 import supabase from "../../supabase";
 import Comments from "./Post Page Components/Comments";
 import SelectedPostTextarea from "./Post Page Components/SelectedPostTextarea";
+import { IPostComment } from "../../ts/interfaces/comment_interfaces";
 
 interface ISelectedPostProps {}
 
@@ -31,7 +32,7 @@ const SelectedPost: React.FunctionComponent<ISelectedPostProps> = (props) => {
       .select(
         `
       *,
-      user(*)`
+      user(*), likedComment(*)`
       )
       .eq("post_id", id!)
       .order("date_created", { ascending: true });
@@ -62,13 +63,14 @@ const SelectedPost: React.FunctionComponent<ISelectedPostProps> = (props) => {
           </div>
         </div>
         {post.data && <Post post={post.data[0]} />}
-        {currentUser?.user.id && (
+        {currentUser?.user.id && post.data && (
           <SelectedPostTextarea
             setCommentText={setCommentText}
             commentText={commentText}
             postId={id!}
             currentUserId={currentUser?.user.id}
             fetchComments={fetchComments}
+            postCommentsNumber={post.data[0].comments!}
           />
         )}
       </div>

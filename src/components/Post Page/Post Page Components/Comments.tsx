@@ -1,6 +1,6 @@
 import * as React from "react";
-import { IPostComment } from "../../../ts/interfaces/post_interfaces";
 import Comment from "./Comment";
+import { IPostComment } from "../../../ts/interfaces/comment_interfaces";
 
 interface ICommentsProps {
   comments: IPostComment[];

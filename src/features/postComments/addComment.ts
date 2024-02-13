@@ -1,11 +1,22 @@
 import supabase from "../../supabase";
 import { v4 as uuid } from "uuid";
 
+const incPostComment = async (postId: string, postCommentsNumber: number) => {
+  const { error } = await supabase
+    .from("post")
+    .update({
+      comments: postCommentsNumber + 1,
+    })
+    .eq("id", postId);
+  error && alert(error.message);
+};
+
 const addComment = async (
   postId: string,
   currentUserId: string,
   description: string,
-  fetchComments: () => Promise<void>
+  fetchComments: () => Promise<void>,
+  postCommentsNumber: number
 ) => {
   let id = uuid();
   const { error } = await supabase.from("comment").insert({
@@ -18,8 +29,9 @@ const addComment = async (
     parent: null,
     date_created: new Date().toISOString(),
   });
-
+  incPostComment(postId, postCommentsNumber);
   error && alert(error.message);
+
   fetchComments();
 };
 
