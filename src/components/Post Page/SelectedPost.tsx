@@ -70,13 +70,12 @@ const SelectedPost: React.FunctionComponent<ISelectedPostProps> = (props) => {
             postId={id!}
             currentUserId={currentUser?.user.id}
             fetchComments={fetchComments}
-            postCommentsNumber={post.data[0].comments!}
           />
         )}
       </div>
       {comments ? (
         comments.length > 0 ? (
-          <Comments comments={comments} />
+          <Comments comments={comments} fetchComments={fetchComments} />
         ) : (
           <div className="after-loader__block">
             <p>No comments</p>

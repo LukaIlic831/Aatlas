@@ -6,6 +6,8 @@ import { IPostComment } from "../../../../ts/interfaces/comment_interfaces";
 interface ICommentItemsProps {
   com: IPostComment;
   likedCommentFromCurrentUser: boolean;
+  openCommentTextarea: boolean;
+  setOpenCommentTextarea: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const CommentItems: React.FunctionComponent<ICommentItemsProps> = (props) => {
@@ -15,7 +17,11 @@ const CommentItems: React.FunctionComponent<ICommentItemsProps> = (props) => {
         com={props.com}
         likedCommentFromCurrentUser={props.likedCommentFromCurrentUser}
       />
-      <CommentReplies comNumbers={props.com.comments!} />
+      <CommentReplies
+        comNumbers={props.com.comments!}
+        setOpenCommentTextarea={props.setOpenCommentTextarea}
+        openCommentTextarea={props.openCommentTextarea}
+      />
     </ul>
   );
 };

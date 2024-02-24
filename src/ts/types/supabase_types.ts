@@ -278,6 +278,18 @@ export type Database = {
         }
         Returns: undefined
       }
+      increment_comment_comments: {
+        Args: {
+          comment_id: string
+        }
+        Returns: undefined
+      }
+      increment_post_comments: {
+        Args: {
+          post_id: string
+        }
+        Returns: undefined
+      }
       lca: {
         Args: {
           "": unknown[]

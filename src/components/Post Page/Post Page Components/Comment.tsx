@@ -4,19 +4,32 @@ import { useNavigate, useParams } from "react-router";
 import CommentItems from "./Comment Comps/CommentItems";
 import { IPostComment } from "../../../ts/interfaces/comment_interfaces";
 import useAppContext from "../../../hooks/useAppContext";
+import CommentTextarea from "./Comment Comps/CommentTextarea";
 
 interface ICommentProps {
   com: IPostComment;
+  replies: IPostComment[];
   index: number;
+  fetchComments: () => Promise<void>;
+  getReplies: (parentCommentId: string) => IPostComment[];
 }
 
 const Comment: React.FunctionComponent<ICommentProps> = (props) => {
   const { currentUser } = useAppContext();
+  const [openCommentTextarea, setOpenCommentTextarea] =
+    React.useState<boolean>(false);
+  const [hideReplies, setHideReplies] = React.useState<boolean>(false);
+  const replies = props.getReplies(props.com.id);
   return (
-    <div className="comment">
+    <div className="comment" key={props.com.id}>
       <div className="comment__align">
         <div className="comment__line">
-          <div className="comment__line--border"></div>
+          <div
+            className="comment__line--border"
+            onClick={() => (
+              setHideReplies(!hideReplies), setOpenCommentTextarea(false)
+            )}
+          ></div>
         </div>
         <div className="comment__wrapper">
           <div className="comment__info">
@@ -47,7 +60,30 @@ const Comment: React.FunctionComponent<ICommentProps> = (props) => {
                     likedComment.user_id == currentUser?.user.id
                 )
               )}
+              openCommentTextarea={openCommentTextarea}
+              setOpenCommentTextarea={setOpenCommentTextarea}
             />
+            {openCommentTextarea && (
+              <CommentTextarea
+                postId={props.com.post_id!}
+                commentId={props.com.id}
+                currentUserId={currentUser?.user.id!}
+                fetchComments={props.fetchComments}
+                setOpenCommentTextarea={setOpenCommentTextarea}
+              />
+            )}
+            <div className="sub-comment">
+              {!hideReplies &&
+                replies.map((comment, index) => (
+                  <Comment
+                    com={comment}
+                    replies={[]}
+                    index={index}
+                    fetchComments={props.fetchComments}
+                    getReplies={props.getReplies}
+                  />
+                ))}
+            </div>
           </div>
         </div>
       </div>

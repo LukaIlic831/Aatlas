@@ -23,7 +23,7 @@ const PostLikes: React.FunctionComponent<IPostLikesProps> = (props) => {
   const likePost = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
     e.stopPropagation();
     if (!currentUser?.user.id) {
-      toastError.likeError();
+      toastError.actionBeforeSignInError();
     } else {
       setLikedDisabled(true);
       if (liked) {

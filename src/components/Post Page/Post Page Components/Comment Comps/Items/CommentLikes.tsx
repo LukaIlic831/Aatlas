@@ -11,7 +11,6 @@ interface ICommentLikesProps {
   com: IPostComment;
   likedCommentFromCurrentUser: boolean;
 }
-
 const CommentLikes: React.FunctionComponent<ICommentLikesProps> = (props) => {
   const [likes, setLikes] = React.useState<number>(props.com.likes!);
   const [liked, setLiked] = React.useState<boolean>(
@@ -21,7 +20,7 @@ const CommentLikes: React.FunctionComponent<ICommentLikesProps> = (props) => {
   const { currentUser } = useAppContext();
   const likeComment = () => {
     if (!currentUser?.user.id) {
-      toastError.likeError();
+      toastError.actionBeforeSignInError();
     } else {
       setLikedDisabled(true);
       if (liked) {
@@ -47,6 +46,7 @@ const CommentLikes: React.FunctionComponent<ICommentLikesProps> = (props) => {
       }
     }
   };
+
   return (
     <li
       className="comment__info--items-item items__item"

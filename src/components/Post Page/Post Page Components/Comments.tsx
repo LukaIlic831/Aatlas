@@ -4,9 +4,15 @@ import { IPostComment } from "../../../ts/interfaces/comment_interfaces";
 
 interface ICommentsProps {
   comments: IPostComment[];
+  fetchComments: () => Promise<void>;
 }
 
 const Comments: React.FunctionComponent<ICommentsProps> = (props) => {
+  const getReplies = (parentCommentId: string) => {
+    return props.comments.filter(
+      (comment) => comment.parent === parentCommentId
+    );
+  };
   return (
     <div className="comments">
       <div className="comments__counter">
@@ -23,7 +29,13 @@ const Comments: React.FunctionComponent<ICommentsProps> = (props) => {
             new Date(a.date_created!).getTime()
         )
         .map((comment, index) => (
-          <Comment com={comment} index={index} />
+          <Comment
+            com={comment}
+            index={index}
+            replies={getReplies(comment.id)}
+            fetchComments={props.fetchComments}
+            getReplies={getReplies}
+          />
         ))}
     </div>
   );
