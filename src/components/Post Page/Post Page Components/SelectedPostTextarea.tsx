@@ -20,6 +20,7 @@ const SelectedPostTextarea: React.FunctionComponent<
           placeholder="Leave your comment here"
           maxLength={1200}
           onChange={(e) => props.setCommentText(e.target.value)}
+          value={props.commentText}
         />
       </div>
       <div className="post__button">
@@ -33,7 +34,8 @@ const SelectedPostTextarea: React.FunctionComponent<
               props.postId,
               props.currentUserId,
               props.commentText,
-              props.fetchComments
+              props.fetchComments,
+              props.setCommentText
             )
           }
         >
