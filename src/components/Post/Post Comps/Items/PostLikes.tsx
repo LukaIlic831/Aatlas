@@ -24,7 +24,7 @@ const PostLikes: React.FunctionComponent<IPostLikesProps> = (props) => {
     e.stopPropagation();
     if (!currentUser?.user.id) {
       toastError.actionBeforeSignInError();
-    } else {
+    } else if (!likedDisabled) {
       setLikedDisabled(true);
       if (liked) {
         setLikes((prevLikes) => prevLikes - 1);
@@ -49,11 +49,7 @@ const PostLikes: React.FunctionComponent<IPostLikesProps> = (props) => {
   };
 
   return (
-    <li
-      className="post__items--item items__item"
-      onClick={(e) => likePost(e)}
-      style={{ pointerEvents: likedDisabled ? "none" : "auto" }}
-    >
+    <li className="post__items--item items__item" onClick={(e) => likePost(e)}>
       <div className="post__items--item-icon items__item--icon">
         {liked ? <LikeFill /> : <LikeSvg />}
       </div>
