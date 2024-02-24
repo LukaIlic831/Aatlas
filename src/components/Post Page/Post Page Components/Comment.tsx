@@ -49,7 +49,9 @@ const Comment: React.FunctionComponent<ICommentProps> = (props) => {
               </div>
             </div>
             <div className="comment__info--text">
-              <p>{props.com.description}</p>
+              <p>
+                {props.com.description ? props.com.description : "[Deleted]"}
+              </p>
             </div>
             <CommentItems
               com={props.com}
@@ -62,6 +64,7 @@ const Comment: React.FunctionComponent<ICommentProps> = (props) => {
               )}
               openCommentTextarea={openCommentTextarea}
               setOpenCommentTextarea={setOpenCommentTextarea}
+              fetchComments={props.fetchComments}
             />
             {openCommentTextarea && (
               <CommentTextarea

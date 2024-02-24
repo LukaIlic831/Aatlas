@@ -2,26 +2,35 @@ import * as React from "react";
 import CommentLikes from "./Items/CommentLikes";
 import CommentReplies from "./Items/CommentReplies";
 import { IPostComment } from "../../../../ts/interfaces/comment_interfaces";
+import CommentTrash from "./Items/CommentTrash";
+import useAppContext from "../../../../hooks/useAppContext";
 
 interface ICommentItemsProps {
   com: IPostComment;
   likedCommentFromCurrentUser: boolean;
   openCommentTextarea: boolean;
   setOpenCommentTextarea: React.Dispatch<React.SetStateAction<boolean>>;
+  fetchComments: () => Promise<void>;
 }
 
 const CommentItems: React.FunctionComponent<ICommentItemsProps> = (props) => {
+  const { currentUser } = useAppContext();
   return (
     <ul className="comment__info--items items">
-      <CommentLikes
-        com={props.com}
-        likedCommentFromCurrentUser={props.likedCommentFromCurrentUser}
-      />
+      {props.com.description && (
+        <CommentLikes
+          com={props.com}
+          likedCommentFromCurrentUser={props.likedCommentFromCurrentUser}
+        />
+      )}
       <CommentReplies
         comNumbers={props.com.comments!}
         setOpenCommentTextarea={props.setOpenCommentTextarea}
         openCommentTextarea={props.openCommentTextarea}
       />
+      {props.com.creator === currentUser?.user.id && props.com.description && (
+        <CommentTrash fetchComments={props.fetchComments} com={props.com} />
+      )}
     </ul>
   );
 };
