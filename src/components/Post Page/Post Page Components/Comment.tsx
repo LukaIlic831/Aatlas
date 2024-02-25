@@ -19,9 +19,10 @@ const Comment: React.FunctionComponent<ICommentProps> = (props) => {
   const [openCommentTextarea, setOpenCommentTextarea] =
     React.useState<boolean>(false);
   const [hideReplies, setHideReplies] = React.useState<boolean>(false);
+  const [action, setAction] = React.useState<string>("addReply");
   const replies = props.getReplies(props.com.id);
   return (
-    <div className="comment" key={props.com.id}>
+    <div className="comment">
       <div className="comment__align">
         <div className="comment__line">
           <div
@@ -65,9 +66,12 @@ const Comment: React.FunctionComponent<ICommentProps> = (props) => {
               openCommentTextarea={openCommentTextarea}
               setOpenCommentTextarea={setOpenCommentTextarea}
               fetchComments={props.fetchComments}
+              setAction={setAction}
+              action={action}
             />
             {openCommentTextarea && (
               <CommentTextarea
+                action={action}
                 postId={props.com.post_id!}
                 commentId={props.com.id}
                 currentUserId={currentUser?.user.id!}

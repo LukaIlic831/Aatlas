@@ -1,8 +1,10 @@
 import * as React from "react";
 import ReactTextareaAutosize from "react-textarea-autosize";
 import addCommentReply from "../../../../features/commentReply/addReply";
+import editComment from "../../../../features/postComments/editComment";
 
 interface ICommentTextareaProps {
+  action: string;
   postId: string;
   currentUserId: string;
   commentId: string;
@@ -13,34 +15,45 @@ interface ICommentTextareaProps {
 const CommentTextarea: React.FunctionComponent<ICommentTextareaProps> = (
   props
 ) => {
-  const [replyText, setReplyText] = React.useState<string>("");
+  const [textareaValue, setTextareaValue] = React.useState<string>("");
   return (
     <>
       <div className="post__comment">
         <ReactTextareaAutosize
-          placeholder="Leave your comment here"
+          placeholder={
+            props.action === "addReply"
+              ? "Leave your reply here"
+              : "Leave your new text here"
+          }
           maxLength={1200}
-          onChange={(e) => setReplyText(e.target.value)}
+          onChange={(e) => setTextareaValue(e.target.value)}
         />
       </div>
       <div className="post__button">
         <button
           style={{
-            pointerEvents: replyText.length > 0 ? "auto" : "none",
-            opacity: replyText.length > 0 ? 1 : 0.6,
+            pointerEvents: textareaValue.length > 0 ? "auto" : "none",
+            opacity: textareaValue.length > 0 ? 1 : 0.6,
           }}
           onClick={() =>
-            addCommentReply(
-              props.postId,
-              props.commentId,
-              props.currentUserId,
-              replyText,
-              props.fetchComments,
-              props.setOpenCommentTextarea
-            )
+            props.action === "addReply"
+              ? addCommentReply(
+                  props.postId,
+                  props.commentId,
+                  props.currentUserId,
+                  textareaValue,
+                  props.fetchComments,
+                  props.setOpenCommentTextarea
+                )
+              : editComment(
+                  props.commentId,
+                  textareaValue,
+                  props.fetchComments,
+                  props.setOpenCommentTextarea
+                )
           }
         >
-          Comment
+          {props.action === "addReply" ? "Reply" : "Edit"}
         </button>
       </div>
     </>

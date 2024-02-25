@@ -30,6 +30,7 @@ const Comments: React.FunctionComponent<ICommentsProps> = (props) => {
         )
         .map((comment, index) => (
           <Comment
+            key={comment.id}
             com={comment}
             index={index}
             replies={getReplies(comment.id)}

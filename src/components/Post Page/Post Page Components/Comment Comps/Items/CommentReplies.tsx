@@ -7,6 +7,8 @@ interface ICommentRepliesProps {
   comNumbers: number;
   setOpenCommentTextarea: React.Dispatch<React.SetStateAction<boolean>>;
   openCommentTextarea: boolean;
+  setAction: React.Dispatch<React.SetStateAction<string>>;
+  action: string;
 }
 
 const CommentReplies: React.FunctionComponent<ICommentRepliesProps> = (
@@ -15,8 +17,11 @@ const CommentReplies: React.FunctionComponent<ICommentRepliesProps> = (
   const { currentUser } = useAppContext();
   const handleCommentButton = () => {
     currentUser?.user.id
-      ? props.setOpenCommentTextarea(!props.openCommentTextarea)
+      ? props.action === "addReply"
+        ? props.setOpenCommentTextarea(!props.openCommentTextarea)
+        : props.setOpenCommentTextarea(true)
       : toastError.actionBeforeSignInError();
+    props.setAction("addReply");
   };
   return (
     <li
