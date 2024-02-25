@@ -1,5 +1,4 @@
 import supabase from "../../supabase";
-import decPostComment from "./decPostComment";
 
 const deleteCommentFromLikedComments = async (commentId: string) => {
   const { error } = await supabase
@@ -21,7 +20,6 @@ const deleteComment = async (
 
   error && alert(error.message);
   deleteCommentFromLikedComments(commentId);
-  decPostComment(postId);
   fetchComments();
 };
 

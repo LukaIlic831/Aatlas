@@ -290,12 +290,6 @@ export type Database = {
         };
         Returns: undefined;
       };
-      decrement_post_comments: {
-        Args: {
-          post_id: string;
-        };
-        Returns: undefined;
-      };
       lca: {
         Args: {
           "": unknown[];
