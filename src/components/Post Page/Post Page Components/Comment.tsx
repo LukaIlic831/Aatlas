@@ -18,6 +18,7 @@ const Comment: React.FunctionComponent<ICommentProps> = (props) => {
   const { currentUser } = useAppContext();
   const [openCommentTextarea, setOpenCommentTextarea] =
     React.useState<boolean>(false);
+  const [blockReply, setBlockReply] = React.useState<boolean>(Boolean(!props.com.description));
   const [hideReplies, setHideReplies] = React.useState<boolean>(false);
   const [action, setAction] = React.useState<string>("addReply");
   const replies = props.getReplies(props.com.id);
@@ -68,6 +69,8 @@ const Comment: React.FunctionComponent<ICommentProps> = (props) => {
               fetchComments={props.fetchComments}
               setAction={setAction}
               action={action}
+              setBlockReply={setBlockReply}
+              blockReply={blockReply}
             />
             {openCommentTextarea && (
               <CommentTextarea

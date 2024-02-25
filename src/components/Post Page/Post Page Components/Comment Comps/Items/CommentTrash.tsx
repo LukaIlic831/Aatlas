@@ -6,6 +6,8 @@ import { IPostComment } from "../../../../../ts/interfaces/comment_interfaces";
 interface ICommentTrashProps {
   fetchComments: () => Promise<void>;
   com: IPostComment;
+  setOpenCommentTextarea: React.Dispatch<React.SetStateAction<boolean>>;
+  setBlockReply: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const CommentTrash: React.FunctionComponent<ICommentTrashProps> = (props) => {
@@ -13,7 +15,12 @@ const CommentTrash: React.FunctionComponent<ICommentTrashProps> = (props) => {
     <li
       className="trash__info--items-item items__item"
       onClick={() =>
-        deleteComment(props.com.id, props.com.post_id!, props.fetchComments)
+        deleteComment(
+          props.com.id,
+          props.fetchComments,
+          props.setOpenCommentTextarea,
+          props.setBlockReply
+        )
       }
     >
       <div className="trash__info--items-item-icon items__item--icon">

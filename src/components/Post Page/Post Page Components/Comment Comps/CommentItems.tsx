@@ -14,6 +14,8 @@ interface ICommentItemsProps {
   fetchComments: () => Promise<void>;
   setAction: React.Dispatch<React.SetStateAction<string>>;
   action: string;
+  setBlockReply: React.Dispatch<React.SetStateAction<boolean>>;
+  blockReply: boolean;
 }
 
 const CommentItems: React.FunctionComponent<ICommentItemsProps> = (props) => {
@@ -32,6 +34,7 @@ const CommentItems: React.FunctionComponent<ICommentItemsProps> = (props) => {
         openCommentTextarea={props.openCommentTextarea}
         setAction={props.setAction}
         action={props.action}
+        blockReply={props.blockReply}
       />
       {props.com.creator === currentUser?.user.id && props.com.description && (
         <CommentEdit
@@ -41,7 +44,12 @@ const CommentItems: React.FunctionComponent<ICommentItemsProps> = (props) => {
         />
       )}
       {props.com.creator === currentUser?.user.id && props.com.description && (
-        <CommentTrash fetchComments={props.fetchComments} com={props.com} />
+        <CommentTrash
+          fetchComments={props.fetchComments}
+          com={props.com}
+          setOpenCommentTextarea={props.setOpenCommentTextarea}
+          setBlockReply={props.setBlockReply}
+        />
       )}
     </ul>
   );

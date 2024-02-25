@@ -9,6 +9,7 @@ interface ICommentRepliesProps {
   openCommentTextarea: boolean;
   setAction: React.Dispatch<React.SetStateAction<string>>;
   action: string;
+  blockReply: boolean;
 }
 
 const CommentReplies: React.FunctionComponent<ICommentRepliesProps> = (
@@ -27,6 +28,9 @@ const CommentReplies: React.FunctionComponent<ICommentRepliesProps> = (
     <li
       className="comment__info--items-item items__item"
       onClick={handleCommentButton}
+      style={{
+        pointerEvents: props.blockReply ? "none" : "auto",
+      }}
     >
       <div className="comment__info--items-item-icon items__item--icon">
         <CommentSvg />

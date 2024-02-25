@@ -10,8 +10,9 @@ const deleteCommentFromLikedComments = async (commentId: string) => {
 
 const deleteComment = async (
   commentId: string,
-  postId: string,
-  fetchComments: () => Promise<void>
+  fetchComments: () => Promise<void>,
+  setOpenCommentTextarea: React.Dispatch<React.SetStateAction<boolean>>,
+  setBlockReply: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
   const { error } = await supabase
     .from("comment")
@@ -20,7 +21,8 @@ const deleteComment = async (
 
   error && alert(error.message);
   deleteCommentFromLikedComments(commentId);
-  fetchComments();
+  fetchComments().then(() => setOpenCommentTextarea(false));
+  setBlockReply(true);
 };
 
 export default deleteComment;
