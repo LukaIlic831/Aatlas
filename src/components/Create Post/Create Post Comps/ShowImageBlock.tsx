@@ -8,6 +8,7 @@ interface IShowImageBlockProps {
   imagePreview: IImagePreview[];
   setImagePreview: React.Dispatch<React.SetStateAction<IImagePreview[]>>;
   setImage: React.Dispatch<React.SetStateAction<File[]>>;
+  setLocationStateImages: React.Dispatch<React.SetStateAction<IImagePreview[]>>;
 }
 
 const ShowImageBlock: React.FunctionComponent<IShowImageBlockProps> = (
@@ -29,6 +30,7 @@ const ShowImageBlock: React.FunctionComponent<IShowImageBlockProps> = (
               setImage={props.setImage}
               setImageSrc={setImageSrc}
               setImageVisible={setImageVisible}
+              setLocationStateImages={props.setLocationStateImages}
             />
           ))}
         </div>

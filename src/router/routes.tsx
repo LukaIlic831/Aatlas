@@ -13,43 +13,47 @@ import { ReactNode } from "react";
 const routes = [
   {
     path: "*",
-    component: <ErrorPage/>,
+    component: <ErrorPage />,
   },
   {
     path: "/",
-    component: <Home/>,
+    component: <Home />,
   },
   {
     path: "/profile/:id",
-    component: <Profile/>,
+    component: <Profile />,
   },
   {
     path: "/create-post",
-    component: <CreatePost/>,
+    component: <CreatePost />,
+  },
+  {
+    path: "/edit-post",
+    component: <CreatePost />,
   },
   {
     path: "/category/:name",
-    component: <CategoryPage/>,
+    component: <CategoryPage />,
   },
   {
     path: "/post",
-    component: <Post/>,
+    component: <Post />,
   },
   {
     path: "/reset-password",
-    component: <PasswordReset/>,
+    component: <PasswordReset />,
   },
   {
     path: "/update-password",
-    component: <UpdatePassword/>,
+    component: <UpdatePassword />,
   },
   {
     path: "/add-username",
-    component: <AddUsername/>,
+    component: <AddUsername />,
   },
   {
     path: "/post/:id",
-    component: <PostPage/>,
+    component: <PostPage />,
   },
 ];
 

@@ -6,6 +6,7 @@ import { IPost } from "../../ts/interfaces/post_interfaces";
 import useAppContext from "../../hooks/useAppContext";
 import PostImages from "./Post Comps/PostImagesWrapper";
 import PostLocation from "./Post Comps/PostLocation";
+import { ReactComponent as DotsSvg } from "../../assets/optionsdots.svg";
 import PostItems from "./Post Comps/PostItems";
 interface IPostProps {
   post: IPost;
@@ -17,7 +18,7 @@ const Post: React.FunctionComponent<IPostProps> = (props) => {
   const location = useLocation();
   const [optionsVisible, setOptionsVisible] = React.useState<boolean>(false);
   const handleOptions = (
-    event: React.MouseEvent<SVGSVGElement, MouseEvent>
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => {
     event.stopPropagation();
     setOptionsVisible(!optionsVisible);
@@ -60,18 +61,12 @@ const Post: React.FunctionComponent<IPostProps> = (props) => {
           </div>
         </div>
         {props.post.creator === currentUser?.user.id && (
-          <div className="post__desc--options">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="14"
-              height="14"
-              fill="currentColor"
-              viewBox="0 0 16 16"
-              onClick={(e) => handleOptions(e)}
-            >
-              <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
-            </svg>
-            {optionsVisible && <PostOptions />}
+          <div
+            className="post__desc--options"
+            onClick={(e) => handleOptions(e)}
+          >
+            <DotsSvg />
+            {optionsVisible && <PostOptions post={props.post} />}
           </div>
         )}
       </div>
@@ -84,7 +79,7 @@ const Post: React.FunctionComponent<IPostProps> = (props) => {
       {props.post.image?.length! > 0 && <PostImages post={props.post} />}
       {props.post.location_id && <PostLocation post={props.post} />}
       <PostItems
-        post = {props.post}
+        post={props.post}
         likes={props.post.likes!}
         comments={props.post.comments!}
         likedPostFromCurrentUser={Boolean(

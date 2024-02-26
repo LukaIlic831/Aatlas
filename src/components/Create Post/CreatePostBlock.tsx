@@ -16,6 +16,10 @@ import { handleClickOutsideCreatePost } from "../../utils/handleClickOutside/han
 import Map from "./Create Post Comps/Map";
 import submitPost from "../../features/createPost/submitPost";
 import useAppContext from "../../hooks/useAppContext";
+import categoriesData from "../../data/categories";
+import { IPost } from "../../ts/interfaces/post_interfaces";
+
+type locationState = { postForEdit: IPost } | null;
 
 interface ICreatePostBlockProps {}
 
@@ -23,46 +27,40 @@ const CreatePostBlock: React.FunctionComponent<ICreatePostBlockProps> = (
   props
 ) => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const state = location.state as locationState;
   const { currentUser } = useAppContext();
-  const [title, setTitle] = React.useState<string>("");
-  const [description, setDescription] = React.useState<string>("");
+  const [title, setTitle] = React.useState<string>(
+    state ? state.postForEdit.title! : ""
+  );
+  const [description, setDescription] = React.useState<string>(
+    state ? state.postForEdit.description! : ""
+  );
   const [image, setImage] = React.useState<File[]>([]);
-  const [imagePreview, setImagePreview] = React.useState<IImagePreview[]>([]);
-  const [showImagePreview, setShowImagePreview] =
-    React.useState<boolean>(false);
+  const [imagePreview, setImagePreview] = React.useState<IImagePreview[]>(
+    state ? state.postForEdit.image! : []
+  );
+  const [showImagePreview, setShowImagePreview] = React.useState<boolean>(
+    state?.postForEdit.image?.length! > 0
+  );
+  const [locationStateImages, setLocationStateImages] = React.useState<
+    IImagePreview[]
+  >(state ? state.postForEdit.image! : []);
   const openLocationOptionRef = React.useRef<HTMLDivElement | null>(null);
   const [openLocationOption, setOpenLocationOption] =
     React.useState<boolean>(false);
-  const [newPlace, setNewPlace] = React.useState<INewPlace | null>(null);
   const [categories, setCategories] = React.useState<IPostCategories>({
-    selectedCategory: null,
-    categories: [
-      {
-        id: "category1",
-        text: "Anime",
-      },
-      {
-        id: "category2",
-        text: "Cooking",
-      },
-      {
-        id: "category3",
-        text: "Animals",
-      },
-      {
-        id: "category4",
-        text: "Sports",
-      },
-      {
-        id: "category5",
-        text: "Other",
-      },
-    ],
+    selectedCategory: state ? state.postForEdit.category_id : null,
+    categories: categoriesData,
   });
   const [viewPort, setViewPort] = React.useState<IViewPort>({
-    latitude: 28.6448,
-    longitude: 77.216721,
-    zoom: 15,
+    latitude: state?.postForEdit.location
+      ? state?.postForEdit.location.latitude!
+      : 28.6448,
+    longitude: state?.postForEdit.location
+      ? state?.postForEdit.location.longitude!
+      : 77.216721,
+    zoom: state?.postForEdit.location ? state?.postForEdit.location.zoom! : 15,
     pitch: 0,
     bearing: 0,
     padding: {
@@ -72,7 +70,14 @@ const CreatePostBlock: React.FunctionComponent<ICreatePostBlockProps> = (
       right: 0,
     },
   });
-
+  const [newPlace, setNewPlace] = React.useState<INewPlace | null>(
+    state?.postForEdit.location
+      ? {
+          longitude: state?.postForEdit.location.longitude!,
+          latitude: state?.postForEdit.location.latitude!,
+        }
+      : null
+  );
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     submitPost(
       e,
@@ -83,7 +88,10 @@ const CreatePostBlock: React.FunctionComponent<ICreatePostBlockProps> = (
       currentUser?.user.id!,
       title,
       description,
-      navigate
+      navigate,
+      location.pathname,
+      state?.postForEdit.id,
+      locationStateImages
     );
   };
 
@@ -224,6 +232,7 @@ const CreatePostBlock: React.FunctionComponent<ICreatePostBlockProps> = (
             imagePreview={imagePreview}
             setImagePreview={setImagePreview}
             setImage={setImage}
+            setLocationStateImages={setLocationStateImages}
           />
         )}
         {newPlace && (
@@ -244,7 +253,7 @@ const CreatePostBlock: React.FunctionComponent<ICreatePostBlockProps> = (
             Cancel
           </button>
           <button type="submit" className="create-post__block--buttons-submit">
-            Submit
+            {location.pathname === "/edit-post" ? "Update" : "Submit"}
           </button>
         </div>
       </form>

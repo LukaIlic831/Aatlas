@@ -1,7 +1,6 @@
 import { NavigateFunction } from "react-router-dom";
 import supabase from "../../supabase";
 import toastError from "../../toasts/toastError";
-import toastSuccess from "../../toasts/toastSuccess";
 import {
   IImagePreview,
   INewPlace,
@@ -9,6 +8,8 @@ import {
   IViewPort,
 } from "../../ts/interfaces/create_post_interfaces";
 import { v4 as uuid } from "uuid";
+import addPost from "./addPost";
+import updatePost from "./updatePost";
 
 interface IImageIds {
   id: string;
@@ -24,7 +25,10 @@ const submitPost = async (
   currentUserId: string,
   title: string,
   desc: string,
-  navigate: NavigateFunction
+  navigate: NavigateFunction,
+  pathname: string,
+  postId: string | undefined,
+  locationStateImages: IImagePreview[]
 ) => {
   event.preventDefault();
   if (categories.selectedCategory) {
@@ -42,14 +46,26 @@ const submitPost = async (
         name: imageId.name,
       }));
     }
-    addPost(
-      currentUserId,
-      title,
-      desc,
-      publicImageUrl,
-      categories.selectedCategory,
-      locationId
-    );
+
+    pathname === "/create-post"
+      ? addPost(
+          currentUserId,
+          title,
+          desc,
+          publicImageUrl,
+          categories.selectedCategory,
+          locationId
+        )
+      : postId &&
+        updatePost(
+          title,
+          desc,
+          publicImageUrl,
+          categories.selectedCategory,
+          locationId,
+          postId,
+          locationStateImages
+        );
     navigate("/");
   } else {
     toastError.categoryNotSelected();
@@ -87,28 +103,6 @@ const uploadImageInStorage = async (
   });
   imageIds.push({ id, name });
   error && alert(error.message);
-};
-
-const addPost = async (
-  currentUserId: string,
-  title: string,
-  desc: string,
-  publicImageUrl: IImagePreview[],
-  categoryId: string,
-  locationId: string | null
-) => {
-  const { error } = await supabase.from("post").insert({
-    creator: currentUserId,
-    title: title,
-    description: desc,
-    likes: 0,
-    image: JSON.parse(JSON.stringify(publicImageUrl)),
-    comments: 0,
-    category_id: categoryId,
-    date_created: new Date().toISOString(),
-    location_id: locationId,
-  });
-  error ? alert(error.message) : toastSuccess.postAddedSuccessfully();
 };
 
 export default submitPost;
