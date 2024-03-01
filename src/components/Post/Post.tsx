@@ -8,6 +8,7 @@ import PostImages from "./Post Comps/PostImagesWrapper";
 import PostLocation from "./Post Comps/PostLocation";
 import { ReactComponent as DotsSvg } from "../../assets/optionsdots.svg";
 import PostItems from "./Post Comps/PostItems";
+import PostMoment from "./Post Comps/PostMoment";
 interface IPostProps {
   post: IPost;
 }
@@ -47,16 +48,7 @@ const Post: React.FunctionComponent<IPostProps> = (props) => {
           <div className="post__desc--username-para">
             <p>
               <span>{props.post.category_id}</span>
-              {" ○ "}
-              <Moment
-                fromNow
-                style={{
-                  fontSize: "14px",
-                  color: "rgb(107 114 128/1)",
-                }}
-              >
-                {props.post?.date_created!}
-              </Moment>
+              <PostMoment post={props.post} />
             </p>
           </div>
         </div>

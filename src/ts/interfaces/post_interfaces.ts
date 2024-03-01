@@ -27,4 +27,5 @@ export interface IPost {
     longitude: number | null;
     zoom: number | null;
   } | null;
+  updated_at: string | null;
 }

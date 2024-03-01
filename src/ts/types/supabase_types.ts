@@ -194,6 +194,7 @@ export type Database = {
           likes: number | null;
           location_id: string | null;
           title: string | null;
+          updated_at: string | null;
         };
         Insert: {
           category_id?: string | null;
@@ -206,6 +207,7 @@ export type Database = {
           likes?: number | null;
           location_id?: string | null;
           title?: string | null;
+          updated_at?: string | null;
         };
         Update: {
           category_id?: string | null;
@@ -218,6 +220,7 @@ export type Database = {
           likes?: number | null;
           location_id?: string | null;
           title?: string | null;
+          updated_at?: string | null;
         };
         Relationships: [
           {

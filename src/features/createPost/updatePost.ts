@@ -20,6 +20,7 @@ const updatePost = async (
       image: locationId ? [] : JSON.parse(JSON.stringify(publicImageUrl)),
       category_id: categoryId,
       location_id: locationId,
+      updated_at: new Date().toISOString(),
     })
     .eq("id", postId);
   error ? alert(error.message) : toastSuccess.postUpdatedSuccessfully();
