@@ -124,13 +124,14 @@ const CreatePostBlock: React.FunctionComponent<ICreatePostBlockProps> = (
       </div>
       <form className="create-post__block" onSubmit={(e) => handleSubmit(e)}>
         <div className="create-post__block--select">
-          {categories.categories.map((category) => (
-            <SelectLabel
-              category={category}
-              categories={categories}
-              setCategories={setCategories}
-            />
-          ))}
+          {!state?.postForEdit &&
+            categories.categories.map((category) => (
+              <SelectLabel
+                category={category}
+                categories={categories}
+                setCategories={setCategories}
+              />
+            ))}
         </div>
         <div className="create-post__block--input">
           <input
