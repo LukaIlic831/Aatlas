@@ -115,7 +115,7 @@ const CreatePostBlock: React.FunctionComponent<ICreatePostBlockProps> = (
   return (
     <div className="create-post__wrapper">
       <div className="create-post__title">
-        <p>Create post for</p>
+        {state?.postForEdit ? <p>Update post for</p> : <p>Create post for</p>}
         {categories.selectedCategory ? (
           <span> {categories.selectedCategory}</span>
         ) : (
