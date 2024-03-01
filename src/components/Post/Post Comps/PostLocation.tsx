@@ -25,6 +25,7 @@ const PostLocation: React.FunctionComponent<IPostLocationProps> = (props) => {
         mapboxAccessToken={process.env.REACT_APP_MAPBOX_KEY!}
         mapStyle={process.env.REACT_APP_MAP_STYLE!}
         scrollZoom={false}
+        dragRotate={false}
       >
         <Marker
           longitude={props.post.location?.longitude!}
