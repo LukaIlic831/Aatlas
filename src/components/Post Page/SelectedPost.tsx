@@ -15,7 +15,7 @@ import { IPostComment } from "../../ts/interfaces/comment_interfaces";
 interface ISelectedPostProps {}
 
 const SelectedPost: React.FunctionComponent<ISelectedPostProps> = (props) => {
-  const { id } = useParams();
+  const { postId } = useParams();
   const { currentUser } = useAppContext();
   const navigate = useNavigate();
   const [commentText, setCommentText] = React.useState<string>("");
@@ -24,7 +24,7 @@ const SelectedPost: React.FunctionComponent<ISelectedPostProps> = (props) => {
     "post",
     "*,user(*), location(*), likedPost(*)",
     "id",
-    id!
+    postId!
   );
   const fetchComments = async () => {
     const { data, error } = await supabase
@@ -34,7 +34,7 @@ const SelectedPost: React.FunctionComponent<ISelectedPostProps> = (props) => {
       *,
       user(*), likedComment(*)`
       )
-      .eq("post_id", id!)
+      .eq("post_id", postId!)
       .order("date_created", { ascending: true });
     error ? alert(error.message) : setComments(data);
   };
@@ -67,7 +67,7 @@ const SelectedPost: React.FunctionComponent<ISelectedPostProps> = (props) => {
           <SelectedPostTextarea
             setCommentText={setCommentText}
             commentText={commentText}
-            postId={id!}
+            postId={postId!}
             currentUserId={currentUser?.user.id}
             fetchComments={fetchComments}
           />

@@ -20,7 +20,7 @@ const routes = [
     component: <Home />,
   },
   {
-    path: "/profile/:id",
+    path: "/profile/:profileId",
     component: <Profile />,
   },
   {
@@ -32,7 +32,7 @@ const routes = [
     component: <CreatePost />,
   },
   {
-    path: "/category/:name",
+    path: "/category/:categoryName",
     component: <CategoryPage />,
   },
   {
@@ -52,7 +52,7 @@ const routes = [
     component: <AddUsername />,
   },
   {
-    path: "/post/:id",
+    path: "/post/:postId",
     component: <PostPage />,
   },
 ];

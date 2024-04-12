@@ -1,5 +1,7 @@
 import * as React from "react";
 import supabase from "../supabase";
+import useAppContext from "./useAppContext";
+import { EnumRefetchAction } from "../ts/enums/refetch_toast_action";
 
 const useFetchWithFilter = <T>(
   tableName: string,
@@ -8,18 +10,23 @@ const useFetchWithFilter = <T>(
   filterString: string
 ) => {
   const [data, setData] = React.useState<T | null>(null);
+  const {refetch, setRefetch} = useAppContext();
   React.useEffect(() => {
     const fetchData = async () => {
       const { error, data } = await supabase
         .from(tableName!)
         .select(selectString)
         .eq(columnName, filterString);
-      error
-        ? alert(error.message)
-        : setData(data.length === 0 ? null : (data as T));
+        if(error){
+          alert(error.message)
+        }
+        else{
+          setData(data.length === 0 ? null : (data as T));
+          setRefetch(EnumRefetchAction.default);
+        }
     };
     fetchData();
-  }, [filterString]);
+  }, [filterString, refetch]);
   return { data };
 };
 

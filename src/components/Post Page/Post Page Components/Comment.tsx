@@ -1,6 +1,5 @@
 import * as React from "react";
 import Moment from "react-moment";
-import { useNavigate, useParams } from "react-router";
 import CommentItems from "./Comment Comps/CommentItems";
 import { IPostComment } from "../../../ts/interfaces/comment_interfaces";
 import useAppContext from "../../../hooks/useAppContext";

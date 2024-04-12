@@ -17,7 +17,7 @@ const ProfilePosts: React.FunctionComponent<IProfilePostsProps> = (props) => {
                 new Date(b.date_created!).getTime() -
                 new Date(a.date_created!).getTime()
             )
-            .map((post) => <Post post={post} />)}
+            .map((post) => <Post post={post} key={post.id}/>)}
       </div>
       {!props.posts && (
         <div className="after-loader__block">

@@ -58,7 +58,11 @@ const Post: React.FunctionComponent<IPostProps> = (props) => {
             onClick={(e) => handleOptions(e)}
           >
             <DotsSvg />
-            {optionsVisible && <PostOptions post={props.post} />}
+            {optionsVisible && (
+              <PostOptions
+                post={props.post}
+              />
+            )}
           </div>
         )}
       </div>

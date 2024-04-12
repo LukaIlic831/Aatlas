@@ -11,13 +11,13 @@ import ProfilePosts from "./Profile Coms/ProfilePosts";
 interface IProfileBlockProps {}
 
 const ProfileBlock: React.FunctionComponent<IProfileBlockProps> = (props) => {
-  const { id } = useParams();
-  const thisUser = useFetchWithFilter<IUserProfile[]>("user", "*", "id", id!);
+  const { profileId } = useParams();
+  const thisUser = useFetchWithFilter<IUserProfile[]>("user", "*", "id", profileId!);
   const posts = useFetchWithFilter<IPost[]>(
     "post",
     "*,user(*), location(*), likedPost(*)",
     "creator",
-    id!
+    profileId!
   );
   const dateCreated = useDate(
     thisUser.data ? thisUser.data[0].date_created : null

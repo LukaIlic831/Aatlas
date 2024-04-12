@@ -6,10 +6,12 @@ import supabase from "./supabase";
 import { IAppContext } from "./ts/interfaces/context_interfaces";
 import { Toaster } from "react-hot-toast";
 import toastOptions from "./toasts/toastOptions";
+import { EnumRefetchAction } from "./ts/enums/refetch_toast_action";
 export const AppContext = React.createContext<null | IAppContext>(null);
 
 function App() {
   const [currentUser, setCurrentUser] = React.useState<Session | null>(null);
+  const [refetch, setRefetch] = React.useState<EnumRefetchAction>(EnumRefetchAction.default);
   React.useEffect(() => {
     document.body.classList.add(
       localStorage.getItem("theme")
@@ -31,6 +33,8 @@ function App() {
     <AppContext.Provider
       value={{
         currentUser,
+        refetch,
+        setRefetch
       }}
     >
       <Toaster toastOptions={toastOptions} />

@@ -10,8 +10,8 @@ interface IPostOptionsProps {
 const PostOptions: React.FunctionComponent<IPostOptionsProps> = (props) => {
   return (
     <ul className="post__options">
-      <PostOptionDelete />
-      <PostOptionEdit post={props.post}/>
+      <PostOptionDelete post={props.post} />
+      <PostOptionEdit post={props.post} />
     </ul>
   );
 };
