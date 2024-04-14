@@ -7,7 +7,6 @@ const addComment = async (
   currentUserId: string,
   description: string,
   fetchComments: () => Promise<void>,
-  setCommentText: React.Dispatch<React.SetStateAction<string>>
 ) => {
   let id = uuid();
   const { error } = await supabase.from("comment").insert({
@@ -24,7 +23,6 @@ const addComment = async (
   error && alert(error.message);
   fetchComments();
   incPostComment(postId);
-  setCommentText("");
 };
 
 export default addComment;

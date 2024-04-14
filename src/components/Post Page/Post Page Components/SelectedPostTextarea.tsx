@@ -34,8 +34,7 @@ const SelectedPostTextarea: React.FunctionComponent<
               props.postId,
               props.currentUserId,
               props.commentText,
-              props.fetchComments,
-              props.setCommentText
+              props.fetchComments
             )
           }
         >

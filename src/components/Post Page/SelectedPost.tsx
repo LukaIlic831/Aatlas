@@ -36,7 +36,12 @@ const SelectedPost: React.FunctionComponent<ISelectedPostProps> = (props) => {
       )
       .eq("post_id", postId!)
       .order("date_created", { ascending: true });
-    error ? alert(error.message) : setComments(data);
+    if (error) {
+      alert(error.message);
+    } else {
+      setComments(data);
+      setCommentText("");
+    }
   };
   React.useEffect(() => {
     fetchComments();
