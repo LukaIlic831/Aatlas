@@ -1,6 +1,7 @@
 import toastSuccess from "../../toasts/toastSuccess";
 import supabase from "../../supabase";
 import { IImagePreview } from "../../ts/interfaces/create_post_interfaces";
+import { NavigateFunction } from "react-router-dom";
 
 const addPost = async (
   currentUserId: string,
@@ -8,7 +9,8 @@ const addPost = async (
   desc: string,
   publicImageUrl: IImagePreview[],
   categoryId: string,
-  locationId: string | null
+  locationId: string | null,
+  navigate: NavigateFunction
 ) => {
   const { error } = await supabase.from("post").insert({
     creator: currentUserId,
@@ -21,7 +23,13 @@ const addPost = async (
     date_created: new Date().toISOString(),
     location_id: locationId,
   });
-  error ? alert(error.message) : toastSuccess.postAddedSuccessfully();
+  if(error){
+    alert(error.message)
+  }
+  else{
+    toastSuccess.postAddedSuccessfully();
+    navigate("/");
+  }
 };
 
 export default addPost;

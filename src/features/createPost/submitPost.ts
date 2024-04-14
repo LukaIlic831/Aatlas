@@ -54,7 +54,8 @@ const submitPost = async (
           desc,
           publicImageUrl,
           categories.selectedCategory,
-          locationId
+          locationId,
+          navigate
         )
       : postId &&
         updatePost(
@@ -64,9 +65,9 @@ const submitPost = async (
           categories.selectedCategory,
           locationId,
           postId,
-          locationStateImages
+          locationStateImages,
+          navigate
         );
-    navigate("/");
   } else {
     toastError.categoryNotSelected();
   }

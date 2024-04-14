@@ -1,6 +1,7 @@
 import toastSuccess from "../../toasts/toastSuccess";
 import supabase from "../../supabase";
 import { IImagePreview } from "../../ts/interfaces/create_post_interfaces";
+import { NavigateFunction } from "react-router-dom";
 
 const updatePost = async (
   title: string,
@@ -9,7 +10,8 @@ const updatePost = async (
   categoryId: string,
   locationId: string | null,
   postId: string,
-  locationStateImages: IImagePreview[]
+  locationStateImages: IImagePreview[],
+  navigate: NavigateFunction
 ) => {
   locationStateImages.map((img) => publicImageUrl.push(img));
   const { error } = await supabase
@@ -23,7 +25,13 @@ const updatePost = async (
       updated_at: new Date().toISOString(),
     })
     .eq("id", postId);
-  error ? alert(error.message) : toastSuccess.postUpdatedSuccessfully();
+    if(error){
+      alert(error.message)
+    }
+    else{
+      toastSuccess.postUpdatedSuccessfully();
+      navigate("/");
+    }
 };
 
 export default updatePost;
