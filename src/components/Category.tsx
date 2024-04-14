@@ -2,10 +2,10 @@ import * as React from "react";
 import { useNavigate } from "react-router-dom";
 import img from "../assets/animals.png";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import { ICategory } from "../ts/interfaces/category_interfaces";
+import { IPostCategory } from "../ts/interfaces/create_post_interfaces";
 
 interface ICategoryProps {
-  category: ICategory;
+  category: IPostCategory;
 }
 
 const Category: React.FunctionComponent<ICategoryProps> = (props) => {
@@ -13,7 +13,7 @@ const Category: React.FunctionComponent<ICategoryProps> = (props) => {
   return (
     <div
       className="category"
-      onClick={() => navigate(`/category/${props.category.id}`)}
+      onClick={() => navigate(`/category/${props.category.title}`)}
     >
       <LazyLoadImage
         className="create-post__block--preview-image"
@@ -24,9 +24,9 @@ const Category: React.FunctionComponent<ICategoryProps> = (props) => {
         threshold={100}
       />
       <div className="category__desc">
-        <h1 className="category__desc--title">{props.category.id}</h1>
+        <h1 className="category__desc--title">{props.category.title}</h1>
         <h5 className="category__desc--sub-title">
-          {props.category.sub_title}
+          {props.category.subTitle}
         </h5>
       </div>
     </div>

@@ -1,6 +1,8 @@
 export interface IPostCategory {
   id: string;
-  text: string;
+  title: string;
+  subTitle: string;
+  image: string;
 }
 
 export interface IPostCategories {

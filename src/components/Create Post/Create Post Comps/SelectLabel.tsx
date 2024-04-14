@@ -20,14 +20,14 @@ const SelectLabel: React.FunctionComponent<ISelectLabelProps> = (props) => {
         className="radio-hidden"
         onChange={() =>
           props.setCategories({
-            selectedCategory: props.category.text,
+            selectedCategory: props.category.title,
             categories: [...props.categories.categories],
           })
         }
-        checked={props.category.text === props.categories.selectedCategory}
+        checked={props.category.title === props.categories.selectedCategory}
       />
       <div className="create-post__block--select-options">
-        <span>{props.category.text}</span>
+        <span>{props.category.title}</span>
       </div>
     </label>
   );
